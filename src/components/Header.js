@@ -60,7 +60,7 @@ export class Header extends Component {
 				<Navbar className="border-top border-bottom">
 					<Nav className="w-100 justify-content-around text-capitalize">
 						{ this.state.categories.map((cat) => {
-							return <Nav.Link key={cat.id} href={'#'+cat.id}>{cat.title}</Nav.Link>
+							return <Nav.Link key={cat.id} href={'/category/'+cat.id}>{cat.title}</Nav.Link>
 						}) }
 					</Nav>
 				</Navbar>

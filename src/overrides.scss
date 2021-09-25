@@ -1,3 +1,30 @@
+.article-title {
+	font-style: italic;
+	a {
+		color: unset;
+		text-decoration: none;
+	}
+}
+
+.byline {
+	font-style: italic;
+	font-weight: light;
+
+	a {
+		&:first-child {
+			text-transform: capitalize;
+		}
+		color: unset;
+		text-decoration: none;
+
+		transition: opacity 0.15s;
+		opacity: 0.65;
+		&:hover {
+			opacity: 0.75;
+		}
+	}
+}
+
 article {
 	figure, img, video, embed, iframe, table {
 		max-width: 100%;
@@ -19,15 +46,15 @@ article {
 		}
 	}
 
-	.hljs {
-		padding: 1rem;
-	}
-
-	.post-body {
+	.article-body {
 		font-size: 1.2rem;
 
 		h1, h2, h3, h4, h5, h6 {
 			font-weight: 300;
 		}
 	}
+}
+
+.hljs {
+	padding: 1rem;
 }

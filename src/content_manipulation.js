@@ -1,8 +1,13 @@
-import ReactHtmlParser from 'react-html-parser';
-import he from 'he';
-
 import 'highlight.js/scss/default.scss';
 import hljs from 'highlight.js/lib/common.js';
+
+import he from 'he';
+
+import ReactHtmlParser from 'react-html-parser';
+let tagClasses = {
+	'blockquote': ['blockquote', 'border-start', 'border-3', 'border-secondary', 'py-2', 'px-4'],
+	'table': ['table', 'table-bordered']
+};
 
 let _matchImg = (node, figures) => {
 	figures = (typeof figures === 'boolean') ? figures : true;
@@ -18,37 +23,26 @@ let _matchImg = (node, figures) => {
 	}
 	return false;
 }
-let _matchCode = (node) => {
-	if (node.tagName == 'PRE' || node.tagName == 'CODE'){
-		hljs.highlightElement(node);
-	}
-	return node;
-}
-
-let tagClasses = {
-	'blockquote': ['blockquote', 'border-start', 'border-3', 'border-info', 'ps-3'],
-	'table': ['table', 'table-bordered']
-}
-let _addClasses = (doc) => {
-	for (var tag of Object.keys(tagClasses)){
-		doc.querySelectorAll(tag).forEach(node => {
-			node.classList.add(...tagClasses[tag]);
-		});
-	}
-}
 
 let getText = (content, options) => {
 	let defaultOptions = {
 		count: 0, // 0 gets all elements, not none.
 		images: true, // include images.
 		figures: true, // if false, replaces <figure>s with their contained <img>s.
-		transform: null // transform function passed to ReactHtmlParser
+		transform: undefined // transform function passed to ReactHtmlParser.
 	}
 	options = Object.assign(defaultOptions, options || {});
 
 	let e = document.createElement('div');
 	e.innerHTML = content;
-	_addClasses(e);
+	for (var tag of Object.keys(tagClasses)){
+		e.querySelectorAll(tag).forEach(node => {
+			node.classList.add(...tagClasses[tag]);
+		});
+	}
+	e.querySelectorAll('pre > code').forEach(node => {
+		node.innerHTML = he.encode(node.innerHTML);
+	});
 
 	let result = [];
 	for (var child of e.children){
@@ -83,8 +77,15 @@ let getImages = (content, options) => {
 	return result;
 }
 
+import dayjs from 'dayjs';
+var fmtString = 'ddd MMM D YYYY [at] h:mma';
+fetch('/api/datefmt')
+	.then((response) => response.json())
+	.then((data) => {
+		fmtString = data;
+	});
 let dateFmt = (str) => {
-	return new Date(str).toDateString();
+	return dayjs(str).format(fmtString);
 }
 
 let sanitize = (str) => {

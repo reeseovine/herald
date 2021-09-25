@@ -6,15 +6,17 @@ import hljs from 'highlight.js/lib/common.js';
 
 export class Full extends Component {
 	componentDidMount(){
-		hljs.highlightAll();
+		// hljs.highlightAll();
 	}
 	render(){
 		return (
-			<article className="my-4">
-				<h2 className="display-6">{manip.sanitize(this.props.entry.title)}</h2>
-				<p><small className="fst-italic text-muted fw-light"><a href={this.props.entry.url}>{manip.sanitize(this.props.entry.feed.title)}</a> - {manip.dateFmt(this.props.entry.published_at)}</small></p>
+			<article className="mt-5 pb-5 border-bottom">
+				<h2 className="article-title display-6"><a href={'/article/'+this.props.entry.id}>{manip.sanitize(this.props.entry.title)}</a></h2>
+				<p className="byline">
+					<a href={'/category/'+this.props.entry.feed.category.id}>{manip.sanitize(this.props.entry.feed.category.title)}</a> &mdash; <a href={'/source/'+this.props.entry.feed.id}>{manip.sanitize(this.props.entry.feed.title)}</a> &mdash; <a href={this.props.entry.url}>{manip.dateFmt(this.props.entry.published_at)}</a>
+				</p>
 
-				<div className="post-body fw-light">
+				<div className="article-body fw-light">
 					{manip.getText(this.props.entry.content)}
 				</div>
 			</article>

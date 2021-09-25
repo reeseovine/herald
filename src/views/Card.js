@@ -30,11 +30,11 @@ export class CardView extends Component {
 			<Card>
 				<Card.Img variant="top" src={this.state.card_img.src} alt={this.state.card_img.alt} />
 				<Card.Body>
-					<div className="card-title h3 fw-light">
-						<a className="link-dark text-decoration-none" href={'#'+this.props.entry.id}>{manip.sanitize(this.props.entry.title)}</a>
+					<div className="article-title card-title h3 fw-light">
+						<a href={'/article/'+this.props.entry.id}>{manip.sanitize(this.props.entry.title)}</a>
 					</div>
 					<Card.Text className="lead">{manip.getText(this.props.entry.content, {count: 1, images: false})}</Card.Text>
-					<small className="text-muted fst-italic fw-light"><a href={this.props.entry.url}>{manip.sanitize(this.props.entry.feed.title)}</a> - {manip.dateFmt(this.props.entry.published_at)}</small>
+					<small className="byline"><a href={'/category/'+this.props.entry.feed.category.id}>{manip.sanitize(this.props.entry.feed.category.title)}</a> &mdash; <a href={'/source/'+this.props.entry.feed.id}>{manip.sanitize(this.props.entry.feed.title)}</a> &mdash; <a href={this.props.entry.url}>{manip.dateFmt(this.props.entry.published_at)}</a></small>
 				</Card.Body>
 			</Card>
 		);
