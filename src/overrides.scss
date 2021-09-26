@@ -1,3 +1,5 @@
+@use "sass:math";
+
 .article-title {
 	font-style: italic;
 	a {
@@ -16,12 +18,6 @@
 		}
 		color: unset;
 		text-decoration: none;
-
-		transition: opacity 0.15s;
-		opacity: 0.65;
-		&:hover {
-			opacity: 0.75;
-		}
 	}
 }
 
@@ -52,6 +48,11 @@ article {
 		h1, h2, h3, h4, h5, h6 {
 			font-weight: 300;
 		}
+	}
+
+	&:last-child {
+		border-bottom: none !important;
+		padding-bottom: 0 !important;
 	}
 }
 

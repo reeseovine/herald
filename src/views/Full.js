@@ -4,22 +4,28 @@ import manip from '../content_manipulation';
 import 'highlight.js/scss/default.scss';
 import hljs from 'highlight.js/lib/common.js';
 
+import { Loader } from '../components/Loader';
+
 export class Full extends Component {
 	componentDidMount(){
-		// hljs.highlightAll();
+		hljs.highlightAll();
 	}
 	render(){
-		return (
-			<article className="mt-5 pb-5 border-bottom">
-				<h2 className="article-title display-6"><a href={'/article/'+this.props.entry.id}>{manip.sanitize(this.props.entry.title)}</a></h2>
-				<p className="byline">
-					<a href={'/category/'+this.props.entry.feed.category.id}>{manip.sanitize(this.props.entry.feed.category.title)}</a> &mdash; <a href={'/source/'+this.props.entry.feed.id}>{manip.sanitize(this.props.entry.feed.title)}</a> &mdash; <a href={this.props.entry.url}>{manip.dateFmt(this.props.entry.published_at)}</a>
-				</p>
+		if (this.props.entry){
+			return (
+				<article className="mb-5 pb-5 border-bottom">
+					<h2 className="article-title display-6"><a href={'/article/'+this.props.entry.id}>{manip.sanitize(this.props.entry.title)}</a></h2>
+					<p className="byline text-muted">
+						<a href={'/category/'+this.props.entry.feed.category.id}>{manip.sanitize(this.props.entry.feed.category.title)}</a> &mdash; <a href={'/source/'+this.props.entry.feed.id}>{manip.sanitize(this.props.entry.feed.title)}</a> &mdash; <a href={this.props.entry.url} target="_blank">{manip.dateFmt(this.props.entry.published_at)}</a>
+					</p>
 
-				<div className="article-body fw-light">
-					{manip.getText(this.props.entry.content)}
-				</div>
-			</article>
-		);
+					<div className="article-body fw-light">
+						{manip.getText(this.props.entry.content)}
+					</div>
+				</article>
+			);
+		} else {
+			return <Loader />;
+		}
 	}
 }
