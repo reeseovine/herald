@@ -8,9 +8,10 @@ dayjs.extend(relaTime);
 import he from 'he';
 
 import ReactHtmlParser from 'react-html-parser';
-let tagClasses = {
+let extraClasses = {
 	'blockquote': ['blockquote', 'border-start', 'border-3', 'border-secondary', 'py-2', 'px-4'],
-	'table': ['table', 'table-bordered']
+	'table': ['table', 'table-bordered'],
+	'a[href]': ['link-info']
 };
 
 let _matchImg = (node, figures) => {
@@ -49,9 +50,9 @@ let getText = (content, options) => {
 
 	let e = document.createElement('div');
 	e.innerHTML = content;
-	for (var tag of Object.keys(tagClasses)){
-		e.querySelectorAll(tag).forEach(node => {
-			node.classList.add(...tagClasses[tag]);
+	for (var selector of Object.keys(extraClasses)){
+		e.querySelectorAll(selector).forEach(node => {
+			node.classList.add(...extraClasses[selector]);
 		});
 	}
 	e.querySelectorAll('pre > code').forEach(node => {

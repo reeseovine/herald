@@ -33,21 +33,19 @@ export class Content extends Component {
 	render(){
 		switch (this.state.feedType){
 			case 'frontpage':
-				return ( <Frontpage /> );
+				return <Frontpage isLight={this.props.isLight} />;
 				break;
 			case 'category':
-				return ( <Articles feed={this.state} /> );
+				return <Articles feed={this.state} isLight={this.props.isLight} />;
 				break;
 			case 'source':
-				return ( <Articles feed={this.state} /> );
+				return <Articles feed={this.state} isLight={this.props.isLight} />;
 				break;
 			case 'article':
-				return ( <Article entry={this.state} /> );
+				return <Article entry={this.state} isLight={this.props.isLight} />;
 				break;
 			default:
-				return (
-					<Loader />
-				);
+				return <Loader />;
 		}
 	}
 }

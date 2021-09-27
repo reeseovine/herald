@@ -29,10 +29,10 @@ export class Article extends Component {
 			return (
 				<Row>
 					<Col xs md={8} className="px-4 px-md-1">
-						<Full entry={this.state.entry} />
+						<Full entry={this.state.entry} isLight={this.props.isLight} />
 					</Col>
 					<Col xs md={4}>
-						<Sidebar type="category" id={this.state.category_id} exclude={[this.state.entry.id]} />
+						<Sidebar type="category" id={this.state.category_id} exclude={[this.state.entry.id]} isLight={this.props.isLight} />
 					</Col>
 				</Row>
 			);

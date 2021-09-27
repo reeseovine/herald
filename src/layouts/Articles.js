@@ -25,7 +25,7 @@ export class Articles extends Component {
 			<Row>
 				<Col xs sm={{span: 10, offset: 1}} lg={{span: 8, offset: 2}} className="px-4">
 					{this.state.feed.map((entry, key) => {
-						return <Full key={key} entry={entry} />
+						return <Full key={key} entry={entry} isLight={this.props.isLight} />
 					})}
 				</Col>
 			</Row>

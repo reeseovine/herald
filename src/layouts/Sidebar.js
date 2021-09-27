@@ -25,14 +25,14 @@ export class Sidebar extends Component {
 		if (this.state.feed){
 			return (
 				<div className="list-group">
-					<div className="list-group-item p-3">
+					<div className={`list-group-item p-3 ${this.props.isLight ? '' : 'bg-dark border-secondary text-white'}`}>
 						<h3 className="mb-0 fw-light">More from this {this.props.type}</h3>
 					</div>
 					{this.state.feed.map((entry, key) => { return (
-						<a key={key} href={'/article/'+entry.id} className="list-group-item list-group-item-action p-3">
+						<a key={key} href={'/article/'+entry.id} className={`list-group-item list-group-item-action p-3 ${this.props.isLight ? '' : 'bg-dark border-secondary text-white'}`}>
 							<h5 className="mb-1 fw-normal">{manip.sanitize(entry.title)}</h5>
 							<p className="mb-1">{manip.getText(entry.content, {count: 1, paras: false, images: false})}</p>
-							<small className="byline text-muted"><a href={'/category/'+entry.feed.category.id}>{manip.sanitize(entry.feed.category.title)}</a> &mdash; <a href={'/source/'+entry.feed.id}>{manip.sanitize(entry.feed.title)}</a> &mdash; {manip.dateFmt(entry.published_at, {relative: true})}</small>
+							<small className={`byline ${this.props.isLight ? 'text-muted' : 'text-light'}`}><a href={'/category/'+entry.feed.category.id}>{manip.sanitize(entry.feed.category.title)}</a> &mdash; <a href={'/source/'+entry.feed.id}>{manip.sanitize(entry.feed.title)}</a> &mdash; {manip.dateFmt(entry.published_at, {relative: true})}</small>
 						</a>
 					)})}
 				</div>
@@ -40,7 +40,7 @@ export class Sidebar extends Component {
 		} else {
 			return (
 				<div className="list-group">
-					<div className="list-group-item p-3">
+					<div className={`list-group-item p-3 ${this.props.isLight ? '' : 'bg-dark border-secondary text-white'}`}>
 						<Loader />
 					</div>
 				</div>

@@ -26,15 +26,15 @@ export class Frontpage extends Component {
 	render(){
 		return (
 			<main>
-				<Hero entry={this.state.feed[0]} />
+				<Hero entry={this.state.feed[0]} isLight={this.props.isLight} />
 				<Row className="mb-4">
-					<Col md={6}><CardView entry={this.state.feed[1]} /></Col>
-					<Col md={6}><CardView entry={this.state.feed[2]} /></Col>
+					<Col md={6}><CardView entry={this.state.feed[1]} isLight={this.props.isLight} /></Col>
+					<Col md={6}><CardView entry={this.state.feed[2]} isLight={this.props.isLight} /></Col>
 				</Row>
 				<Row>
 					<Col xs md={{span: 10, offset: 1}} xl={{span: 8, offset: 2}} className="px-4">
 						{this.state.feed.splice(3).map((entry, key) => {
-							return <Full key={key} entry={entry} />
+							return <Full key={key} entry={entry} isLight={this.props.isLight} />
 						})}
 					</Col>
 				</Row>
