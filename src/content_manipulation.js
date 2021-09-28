@@ -44,6 +44,7 @@ let getText = (content, options) => {
 		images: true, // include images.
 		figures: true, // if false, replaces <figure>s with their contained <img>s.
 		paras: true, // if false, replaces <p> tags with <span>s.
+		parasOnly: false, // match only paragraph elements and nothing else.
 		transform: undefined // transform function passed to ReactHtmlParser.
 	}
 	options = Object.assign(defaultOptions, options || {});
@@ -55,15 +56,13 @@ let getText = (content, options) => {
 			node.classList.add(...extraClasses[selector]);
 		});
 	}
-	e.querySelectorAll('pre > code').forEach(node => {
-		node.innerHTML = he.encode(node.innerHTML);
-	});
 	e.querySelectorAll('a[href]').forEach(link => {
 		link.setAttribute('target', '_blank');
 	})
 
 	let result = [];
 	for (var child of e.children){
+		if (options.parasOnly && child.tagName != 'P') continue;
 		let img = _matchImg(child, options.figures);
 		if (options.images && img){
 			result.push(ReactHtmlParser(img.outerHTML, {transform: options.transform}));

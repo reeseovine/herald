@@ -6,6 +6,7 @@ import yargs from 'yargs';
 
 import express from 'express';
 const app = express();
+app.use(express.urlencoded({ extended: true }));
 
 import api from './api.mjs';
 

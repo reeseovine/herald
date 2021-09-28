@@ -26,6 +26,10 @@ article {
 		max-width: 100%;
 	}
 
+	figure, table {
+		color: unset;
+	}
+
 	figure {
 		width: max-content;
 		overflow-x: auto;

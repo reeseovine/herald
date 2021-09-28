@@ -26,6 +26,7 @@ let cacheResponse = (duration) => {
 	}
 }
 
+// Wrapper functions for miniflux API
 let api_get = (path, cb) => {
 	fetch(
 		urljoin(process.env.MINIFLUX_API_ENDPOINT, path),
@@ -62,64 +63,63 @@ let api_put = (path, payload, cb) => {
 	).then(data => data.json().then(json => cb(json)));
 };
 
+// List user-defined categories
 api.get('/categories', (req, res) => {
 	api_get('/categories', (data) => {
 		res.json(data);
 	});
 });
-api.get('/feed', (req, res) => {
+
+// Get all unread articles
+api.get('/feed', cacheResponse(60), (req, res) => {
 	api_get(`/entries?status=unread&limit=10&order=published_at&direction=desc`, (data) => {
 		res.json(data.entries);
 	});
 });
-api.get('/feed/category/:id', (req, res) => {
+
+// Get unread articles in a category
+api.get('/feed/category/:id', cacheResponse(60), (req, res) => {
 	api_get(`/entries?status=unread&limit=10&order=published_at&direction=desc&category_id=${req.params.id}`, (data) => {
 		res.json(data.entries);
 	});
 });
-api.get('/feed/source/:id', (req, res) => {
+
+// Get unread articles from a source
+api.get('/feed/source/:id', cacheResponse(60), (req, res) => {
 	api_get(`/feeds/${req.params.id}/entries?status=unread&limit=10&order=published_at&direction=desc`, (data) => {
 		res.json(data.entries);
 	});
 });
+
+// Get an article
 api.get('/feed/article/:id', cacheResponse(300), (req, res) => {
 	api_get(`/entries/${req.params.id}`, (data) => {
 		res.json([data]);
 	});
 });
 
-api.get('/refresh', (req, res) => {
-	api_get('/feeds/refresh', (data) => {
-		res.code(202).end();
+// Search for articles
+api.get('/search', cacheResponse(60), (req, res) => {
+	api_get(`/entries?search=${req.query.q}&order=published_at&direction=desc`, (data) => {
+		res.json(data);
 	});
 });
+
+// Mark an article as read
 api.get('/read/:id', (req, res) => {
 	api_put(`/entries`, {'entry_ids': [req.params.id], 'status': 'read' }, (data) => {
 		res.json(200).end();
 	});
 });
 
-api.get('/datefmt', cacheResponse(), (req, res) => {
-	if (process.env.DAYJS_FORMAT){
-		res.send(`"${process.env.DAYJS_FORMAT}"`);
-	} else {
-		res.status(502).end();
-	}
+// Refresh all feeds
+api.get('/refresh', (req, res) => {
+	api_get('/feeds/refresh', (data) => {
+		res.status(204).end();
+	});
 });
 
-api.get('/papername', cacheResponse(), (req, res) => {
-	if (process.env.NEWSPAPER_NAME){
-		res.send(`"${process.env.NEWSPAPER_NAME}"`);
-	} else {
-		let adjectives = ["Afternoon", "Breakfast", "Daily", "Evening", "Morning", "People's", "Sunrise", "Teatime", "Union"];
-		let nouns = ["Bulletin", "Chronicle", "Gazette", "Herald", "Press", "Record", "Report", "Reporter", "Telegraph", "Tribune"];
-		let hashCode = s => s.split('').reduce((a,b)=>{a=((a<<5)-a)+b.charCodeAt(0);return a&a},0);
-		let getIndex = (seed, max) => Math.abs(hashCode(seed)) % max;
-
-		res.json(`The ${adjectives[getIndex(new Date().toDateString(), adjectives.length)]} ${nouns[getIndex(new Date().toLocaleDateString(), nouns.length)]}`);
-	}
-});
-
+// Get the weather
 api.get('/weather', cacheResponse(3600), (req, res) => {
 	if (process.env.OWM_API_KEY && process.env.OWM_LATITUDE && process.env.OWM_LONGITUDE){
 		let url = `https://api.openweathermap.org/data/2.5/weather?appid=${process.env.OWM_API_KEY}&lat=${process.env.OWM_LATITUDE}&lon=${process.env.OWM_LONGITUDE}`;
@@ -146,6 +146,20 @@ api.get('/weather', cacheResponse(3600), (req, res) => {
 	} else {
 		console.warn('Weather: No OWM API key provided. Skipping...');
 		res.status(502).end();
+	}
+});
+
+// Get the newspaper name
+api.get('/papername', cacheResponse(), (req, res) => {
+	if (process.env.NEWSPAPER_NAME){
+		res.send(`"${process.env.NEWSPAPER_NAME}"`);
+	} else {
+		let adjectives = ["Afternoon", "Breakfast", "Daily", "Evening", "Morning", "People's", "Sunrise", "Teatime", "Union"];
+		let nouns = ["Bulletin", "Chronicle", "Gazette", "Herald", "Press", "Record", "Report", "Reporter", "Telegraph", "Tribune"];
+		let hashCode = s => s.split('').reduce((a,b)=>{a=((a<<5)-a)+b.charCodeAt(0);return a&a},0);
+		let getIndex = (seed, max) => Math.abs(hashCode(seed)) % max;
+
+		res.json(`The ${adjectives[getIndex(new Date().toDateString(), adjectives.length)]} ${nouns[getIndex(new Date().toLocaleDateString(), nouns.length)]}`);
 	}
 });
 

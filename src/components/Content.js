@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { Frontpage } from '../layouts/Frontpage';
 import { Articles } from '../layouts/Articles';
 import { Article } from '../layouts/Article';
+import { Search } from '../layouts/Search';
 
 import { Loader } from './Loader';
 
@@ -23,9 +24,9 @@ export class Content extends Component {
 
 		if (path.length == 0 || path[0] == ''){
 			feedType = 'frontpage';
-		} else if (path.length == 2){
+		} else if (path.length > 0){
 			feedType = path[0];
-			feedId = path[1];
+			feedId = path[1] || feedId;
 		}
 		this.setState({feedType, feedId});
 	}
@@ -43,6 +44,9 @@ export class Content extends Component {
 				break;
 			case 'article':
 				return <Article entry={this.state} isLight={this.props.isLight} />;
+				break;
+			case 'search':
+				return <Search query={(new URL(window.location)).searchParams.get('q')} isLight={this.props.isLight} />;
 				break;
 			default:
 				return <Loader />;

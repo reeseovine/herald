@@ -26,7 +26,7 @@ export class App extends Component {
 
 	render(){
 		return (
-			<div className={this.state.isLight ? 'bg-body text-body' : 'bg-dark text-light'}>
+			<div className={`min-vh-100 ${this.state.isLight ? 'bg-body text-body' : 'bg-dark text-light'}`}>
 				<Container fluid="lg">
 					<Header isLight={this.state.isLight} lightswitch={this.lightswitch} />
 					<Content isLight={this.state.isLight} />

@@ -28,7 +28,7 @@ export class Article extends Component {
 		if (this.state.entry){
 			return (
 				<Row>
-					<Col xs md={8} className="px-4 px-md-1">
+					<Col xs md={8} className="px-4 px-md-3">
 						<Full entry={this.state.entry} isLight={this.props.isLight} />
 					</Col>
 					<Col xs md={4}>

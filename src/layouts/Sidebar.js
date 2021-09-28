@@ -31,7 +31,7 @@ export class Sidebar extends Component {
 					{this.state.feed.map((entry, key) => { return (
 						<a key={key} href={'/article/'+entry.id} className={`list-group-item list-group-item-action p-3 ${this.props.isLight ? '' : 'bg-dark border-secondary text-white'}`}>
 							<h5 className="mb-1 fw-normal">{manip.sanitize(entry.title)}</h5>
-							<p className="mb-1">{manip.getText(entry.content, {count: 1, paras: false, images: false})}</p>
+							<p className="mb-1">{manip.getText(entry.content, {count: 1, paras: false, parasOnly: true, images: false})}</p>
 							<small className={`byline ${this.props.isLight ? 'text-muted' : 'text-light'}`}><a href={'/category/'+entry.feed.category.id}>{manip.sanitize(entry.feed.category.title)}</a> &mdash; <a href={'/source/'+entry.feed.id}>{manip.sanitize(entry.feed.title)}</a> &mdash; {manip.dateFmt(entry.published_at, {relative: true})}</small>
 						</a>
 					)})}
