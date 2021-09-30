@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { Row, Col } from 'react-bootstrap';
 
 import { Full } from '../views/Full';
+import { Loader } from '../components/Loader';
 
 export class Articles extends Component {
 	constructor(){
@@ -17,18 +18,34 @@ export class Articles extends Component {
 			.then((response) => response.json())
 			.then((feed) => {
 				this.setState({feed});
+				let feedName = '';
+				if (feed.length > 0){
+					switch (this.props.feed.feedType){
+						case 'category':
+							feedName = feed[0].feed.category.title;
+							break;
+						case 'source':
+							feedName = feed[0].feed.title;
+							break;
+					}
+				}
+				document.title = `${feedName} | Herald`;
 			});
 	}
 
 	render(){
-		return (
-			<Row>
-				<Col xs sm={{span: 10, offset: 1}} lg={{span: 8, offset: 2}} className="px-4">
-					{this.state.feed.map((entry, key) => {
-						return <Full key={key} entry={entry} isLight={this.props.isLight} />
-					})}
-				</Col>
-			</Row>
-		);
+		if (this.state.feed.length > 0){
+			return (
+				<Row>
+					<Col xs sm={{span: 10, offset: 1}} lg={{span: 8, offset: 2}} className="px-4">
+						{this.state.feed.map((entry, key) => {
+							return <Full key={key} entry={entry} isLight={this.props.isLight} />
+						})}
+					</Col>
+				</Row>
+			);
+		} else {
+			return <Loader />;
+		}
 	}
 }

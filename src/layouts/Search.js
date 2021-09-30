@@ -13,10 +13,11 @@ export class Search extends Component {
 	}
 
 	componentDidMount(){
+		document.title = `Search for ${this.props.query} | Herald`;
 		fetch(`/api/search?q=${this.props.query}`)
 			.then((response) => response.json())
 			.then((results) => {
-				// TODO: figure out a faster way to show all results on one page
+				// TODO: implement infinite scroll
 				this.setState({results: results.entries.slice(0,10)});
 			});
 	}

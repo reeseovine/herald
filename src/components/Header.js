@@ -65,12 +65,12 @@ export class Header extends Component {
 							path= {this.props.isLight ? mdiWeatherNight : mdiWeatherSunny}
 							title={this.props.isLight ? 'Dark theme'    : 'Light theme'}
 							onClick={this.props.lightswitch}
-							size={1} role="button" className="ms-2" />
-						<Icon path={mdiMagnify} title="Search" size={1} role="button" className="ms-2"
+							size={1} role="button" className="ms-3" />
+						<Icon path={mdiMagnify} title="Search" size={1} role="button" className="ms-3"
 							onClick={() => {this.searchbar.current.toggle()}} />
 						<Searchbar
 							ref={this.searchbar} shown={false} isLight={this.props.isLight}
-							className="ms-2 flex-grow-1" />
+							className="ms-3 flex-grow-1" />
 					</Col>
 				</Row>
 				<Navbar className={`border-top border-bottom ${this.props.isLight ? '' : 'border-secondary'}`}>

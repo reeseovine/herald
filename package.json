@@ -29,9 +29,9 @@
   },
   "proxy": "http://localhost:5000",
   "scripts": {
-    "serve": "nodemon -w server --experimental-modules server/index.mjs",
+    "serve": "nodemon -w server --experimental-modules --trace-warnings server/index.mjs",
     "start": "concurrently --names \"backend,frontend\" \"yarn serve\" \"react-scripts start\"",
-    "production": "node server/index.js --prod",
+    "production": "node --experimental-modules server/index.mjs --prod",
     "build": "react-scripts build",
     "eject": "react-scripts eject"
   },

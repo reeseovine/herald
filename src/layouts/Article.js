@@ -21,6 +21,7 @@ export class Article extends Component {
 					entry: feed[0],
 					category_id: feed[0].feed.category.id
 				});
+				document.title = `${feed[0].title} | Herald`;
 			});
 	}
 
@@ -28,7 +29,7 @@ export class Article extends Component {
 		if (this.state.entry){
 			return (
 				<Row>
-					<Col xs md={8} className="px-4 px-md-3">
+					<Col xs md={8} className="px-4 pe-xl-5">
 						<Full entry={this.state.entry} isLight={this.props.isLight} />
 					</Col>
 					<Col xs md={4}>

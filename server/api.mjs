@@ -60,7 +60,7 @@ let api_put = (path, payload, cb) => {
 				'X-Auth-Token': process.env.MINIFLUX_API_KEY
 			}
 		}
-	).then(data => data.json().then(json => cb(json)));
+	).then(() => cb());
 };
 
 // List user-defined categories
@@ -107,8 +107,8 @@ api.get('/search', cacheResponse(60), (req, res) => {
 
 // Mark an article as read
 api.get('/read/:id', (req, res) => {
-	api_put(`/entries`, {'entry_ids': [req.params.id], 'status': 'read' }, (data) => {
-		res.json(200).end();
+	api_put(`/entries`, {'entry_ids': [parseInt(req.params.id, 10)], 'status': 'read' }, () => {
+		res.status(200).end();
 	});
 });
 

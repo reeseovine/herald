@@ -16,6 +16,7 @@ export class Frontpage extends Component {
 	}
 
 	componentDidMount(){
+		document.title = `Front page | Herald`;
 		fetch(`/api/feed/`)
 			.then((response) => response.json())
 			.then((feed) => {
