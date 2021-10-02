@@ -1,8 +1,8 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
-import express from 'express';
-const api = express.Router();
+import { Router } from 'express';
+const api = Router();
 
 import fetch from 'node-fetch';
 import urljoin from 'url-join';
@@ -34,7 +34,7 @@ let api_get = (path, cb) => {
 			method: 'GET',
 			headers: { 'X-Auth-Token': process.env.MINIFLUX_API_KEY }
 		}
-	).then(data => data.json().then(json => cb(json)));
+	).then(data => data.json().then(json => cb(json, data.status)));
 };
 let api_post = (path, payload, cb) => {
 	fetch(
@@ -47,7 +47,7 @@ let api_post = (path, payload, cb) => {
 				'X-Auth-Token': process.env.MINIFLUX_API_KEY
 			}
 		}
-	).then(data => data.json().then(json => cb(json)));
+	).then(data => data.json().then(json => cb(json, data.status)));
 };
 let api_put = (path, payload, cb) => {
 	fetch(
@@ -60,8 +60,9 @@ let api_put = (path, payload, cb) => {
 				'X-Auth-Token': process.env.MINIFLUX_API_KEY
 			}
 		}
-	).then(() => cb());
+	).then(data => cb(data.status));
 };
+
 
 // List user-defined categories
 api.get('/categories', (req, res) => {
@@ -79,21 +80,37 @@ api.get('/feed', cacheResponse(60), (req, res) => {
 
 // Get unread articles in a category
 api.get('/feed/category/:id', cacheResponse(60), (req, res) => {
-	api_get(`/entries?status=unread&limit=10&order=published_at&direction=desc&category_id=${req.params.id}`, (data) => {
+	api_get(`/entries?status=unread&limit=10&order=published_at&direction=desc&category_id=${req.params.id}`, (data, status) => {
+		if (status !== 200){
+			return res.status(status).end();
+		}
 		res.json(data.entries);
 	});
 });
 
 // Get unread articles from a source
 api.get('/feed/source/:id', cacheResponse(60), (req, res) => {
-	api_get(`/feeds/${req.params.id}/entries?status=unread&limit=10&order=published_at&direction=desc`, (data) => {
+	api_get(`/feeds/${req.params.id}/entries?status=unread&limit=10&order=published_at&direction=desc`, (data, status) => {
+		if (status !== 200){
+			return res.status(status).end();
+		}
+		res.json(data.entries);
+	});
+});
+
+// Get bookmarked articles
+api.get('/feed/bookmarks', (req, res) => {
+	api_get(`/entries?starred=true&limit=10&order=published_at&direction=desc`, (data) => {
 		res.json(data.entries);
 	});
 });
 
 // Get an article
 api.get('/feed/article/:id', cacheResponse(300), (req, res) => {
-	api_get(`/entries/${req.params.id}`, (data) => {
+	api_get(`/entries/${req.params.id}`, (data, status) => {
+		if (status !== 200){
+			return res.status(status).end();
+		}
 		res.json([data]);
 	});
 });
@@ -105,9 +122,16 @@ api.get('/search', cacheResponse(60), (req, res) => {
 	});
 });
 
-// Mark an article as read
+// Mark an article as read (or unread)
 api.get('/read/:id', (req, res) => {
-	api_put(`/entries`, {'entry_ids': [parseInt(req.params.id, 10)], 'status': 'read' }, () => {
+	api_put(`/entries`, {'entry_ids': [parseInt(req.params.id, 10)], 'status': (req.query.read == 'false' ? 'unread' : 'read')}, (status) => {
+		res.status(status).end();
+	});
+});
+
+// Bookmark (star) an article
+api.get('/bookmark/:id', (req, res) => {
+	api_put(`/entries/${req.params.id}/bookmark`, {}, () => {
 		res.status(200).end();
 	});
 });

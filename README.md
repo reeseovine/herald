@@ -1,15 +1,28 @@
 # herald
 
-prettier frontend for the [miniflux](https://miniflux.app/index.html) feed reader using react and bootstrap
+prettier frontend for the [miniflux](https://miniflux.app/index.html) feed reader using express, react, and bootstrap
 
 ### NOTE: this project is in beta and is not very stable or featureful. proceed at your own risk!
 
-## setup
+## features
+* newspaper/magazine-like layout with Bootstrap
+* light and dark mode
+* responsive layout
+* full-text search
+* basic weather widget
+* syntax highlighting in code blocks powered by [highlight.js](https://highlightjs.org/)
+* mark articles as read just by scrolling to the bottom (or with a button)
 
+## limitations
+* intentionally implements only a subset of the Miniflux API to reduce potential damage that could be caused by malicious visitors.
+* feed contents are only as good as what is provided by miniflux. i recommend telling miniflux to fetch the original contents and setting [rules](https://miniflux.app/docs/rules.html) to get the best quality.
+
+## setup
 1. [install miniflux](https://miniflux.app/docs/installation.html), then add some categories and feeds.
 2. in your miniflux instance, go to Settings -> API Keys, and click the "Create a new API key" button. enter a name for this key (such as `herald`) and click "Save".
 3. copy the API Endpoint URL and the newly created key and save them as the `MINIFLUX_API_ENDPOINT` and `MINIFLUX_API_KEY` environment variables (respectively).
 4. install herald with one of the methods below. it should be on a host on the same network as miniflux.
+5. optionally you can put herald behind a reverse proxy to make it available from the outside. even though there's not much someone can do to mess with your herald instance, it's highly recommended to password protect it if it's facing the public internet.
 
 ### Docker Compose (preferred)
 *coming soon...*
@@ -20,9 +33,8 @@ prettier frontend for the [miniflux](https://miniflux.app/index.html) feed reade
 ### Node JS (not recommended)
 1. download the source code from the [Releases section](#) and extract it. alternatively you can use `git clone https://github.com/katacarbix/herald` if you have git installed.
 2. open a terminal in the `herald/` directory.
-3.
-  a. if you cloned the source from github, run `npm install && yarn build`
-  b. otherwise, run `npm install --only=prod`
+3. if you cloned the source from github, run `npm install && yarn build`.  
+   otherwise, run `npm install --only=prod`.
 4. copy `sample.env` to `.env` and enter your environment variables into this new file.
 5. start herald with `yarn production`. you will need to run this command and leave the terminal open every time you want to start it. you can stop herald with `Ctrl+C`.
 

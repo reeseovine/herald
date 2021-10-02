@@ -8,7 +8,8 @@ dayjs.extend(relaTime);
 import he from 'he';
 
 import ReactHtmlParser from 'react-html-parser';
-let extraClasses = {
+
+const extraClasses = {
 	'blockquote': ['blockquote', 'border-start', 'border-3', 'border-secondary', 'py-2', 'px-4'],
 	'table': ['table', 'table-bordered'],
 	'a[href]': ['link-info']
@@ -65,9 +66,9 @@ let getText = (content, options) => {
 		if (options.parasOnly && child.tagName != 'P') continue;
 		let img = _matchImg(child, options.figures);
 		if (options.images && img){
-			result.push(ReactHtmlParser(img.outerHTML, {transform: options.transform}));
+			result.push(ReactHtmlParser(img.outerHTML, {transform: options.transform})[0]);
 		} else if (!img){
-			result.push(ReactHtmlParser(_swapPs(child, options.paras).outerHTML, {transform: options.transform}));
+			result.push(ReactHtmlParser(_swapPs(child, options.paras).outerHTML, {transform: options.transform})[0]);
 		}
 		if (options.count >= 1 && result.length == options.count) break;
 	}
@@ -87,9 +88,10 @@ let getImages = (content, options) => {
 	let result = [];
 	for (var child of e.children){
 		let img = _matchImg(child, options.figures);
-		if (img) result.push(ReactHtmlParser(img.outerHTML));
+		if (img) result.push(ReactHtmlParser(img.outerHTML)[0]);
 		if (options.count >= 1 && result.length == options.count) break;
 	}
+	console.log(result);
 	return result;
 }
 
@@ -105,4 +107,19 @@ let sanitize = (str) => {
 	return he.decode(str);
 }
 
-export default { getText, getImages, dateFmt, sanitize };
+let markAsRead = (id, read) => {
+	if (read || typeof read === 'undefined'){
+		console.log('marking '+id+' as read');
+		fetch(`/api/read/${id}`).then((res) => console.log(`server returned ${res.status}: ${res.statusText}`));
+	} else {
+		console.log('marking '+id+' as unread');
+		fetch(`/api/read/${id}?read=false`).then((res) => console.log(`server returned ${res.status}: ${res.statusText}`));
+	}
+}
+
+let bookmark = (id) => {
+	console.log('toggling bookmark on '+id);
+	fetch(`/api/bookmark/${id}`).then((res) => console.log(`server returned ${res.status}: ${res.statusText}`));
+}
+
+export default { getText, getImages, dateFmt, sanitize, markAsRead, bookmark };

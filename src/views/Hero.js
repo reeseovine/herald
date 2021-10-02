@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import manip from '../content_manipulation';
 
 import { Loader } from '../components/Loader';
-import { MarkRead } from '../components/MarkRead';
+import { Byline } from './Byline';
 
 export class Hero extends Component {
 	markAsRead(id){
@@ -17,10 +17,9 @@ export class Hero extends Component {
 						<a href={'/article/'+this.props.entry.id}>{manip.sanitize(this.props.entry.title)}</a>
 					</h1>
 					<p className="lead fs-4">{manip.getText(this.props.entry.content, {count: 1, paras: false, parasOnly: true, images: false})}</p>
-					<p className="byline mb-0 text-light">
-						<a href={'/category/'+this.props.entry.feed.category.id}>{manip.sanitize(this.props.entry.feed.category.title)}</a> &mdash; <a href={'/source/'+this.props.entry.feed.id}>{manip.sanitize(this.props.entry.feed.title)}</a> &mdash; <a href={this.props.entry.url} target="_blank">{manip.dateFmt(this.props.entry.published_at, {relative: true})}</a>
-						<MarkRead className="float-end" onClick={() => {this.markAsRead(this.props.entry.id)}} />
-					</p>
+					<Byline entry={this.props.entry} isLight={this.props.isLight} className="mb-0"
+						lightTextClass="text-light" darkTextClass="text-light"
+						lightLinkClass="link-light" darkLinkClass="link-light" />
 				</div>
 			);
 		} else {

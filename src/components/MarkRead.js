@@ -16,7 +16,7 @@ export class MarkRead extends Component {
 				className={`float-end ${this.state.read ? 'text-success' : ''}`}
 				title={this.state.read ? 'Marked as read' : 'Mark as read'}
 				onClick={(e) => {
-					this.setState({read: true});
+					this.setState({read: !this.state.read});
 					this.props.onClick(e);
 				}} />
 		);

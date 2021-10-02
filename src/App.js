@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { Container } from 'react-bootstrap';
-import 'bootstrap/scss/bootstrap.scss';
 
 import { Header } from './components/Header';
 import { Content } from './components/Content';
-import './overrides.scss';
+import { Footer } from './components/Footer';
+
+import './style.scss';
 
 import Cookies from 'js-cookie';
 
@@ -26,10 +27,13 @@ export class App extends Component {
 
 	render(){
 		return (
-			<div className={`min-vh-100 ${this.state.isLight ? 'bg-body text-body' : 'bg-dark text-light'}`}>
-				<Container fluid="lg">
+			<div className={this.state.isLight ? 'bg-body text-body' : 'bg-dark text-light'}>
+				<Container fluid="lg" className="d-flex flex-column min-vh-100">
 					<Header isLight={this.state.isLight} lightswitch={this.lightswitch} />
-					<Content isLight={this.state.isLight} />
+					<main className="flex-grow-1">
+						<Content isLight={this.state.isLight} />
+					</main>
+					<Footer isLight={this.state.isLight} />
 				</Container>
 			</div>
 		);

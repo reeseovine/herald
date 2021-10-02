@@ -1,21 +1,10 @@
 @use "sass:math";
+@use 'highlight.js/scss/default.scss';
+@import 'bootstrap/scss/bootstrap.scss';
 
 .article-title {
 	font-style: italic;
 	a {
-		color: unset;
-		text-decoration: none;
-	}
-}
-
-.byline {
-	font-style: italic;
-	font-weight: light;
-
-	a {
-		&:first-child {
-			text-transform: capitalize;
-		}
 		color: unset;
 		text-decoration: none;
 	}
@@ -62,4 +51,19 @@ article {
 
 .hljs {
 	padding: 1rem;
+}
+
+.masonry {
+	@include media-breakpoint-up(md){
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		grid-template-rows: masonry;
+		grid-gap: $spacer;
+		align-items: start;
+	}
+	@include media-breakpoint-down(md){
+		> :not(:last-child) {
+			margin-bottom: $spacer;
+		}
+	}
 }
