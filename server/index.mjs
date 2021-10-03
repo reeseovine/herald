@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 import path from 'path';
+
 import yargs from 'yargs';
 
 import express from 'express';
@@ -24,10 +25,15 @@ let argv = yargs(process.argv.slice(2))
 	.help()
 	.argv;
 
-if (argv.production) app.use(express.static(path.join(__dirname, 'build')));
-
 // Miniflux API wrapper
 app.use('/api', api);
+
+if (argv.production){
+	app.use(express.static('build'));
+	// app.all('*', (req, res) => {
+	// 	res.sendFile(path.resolve('build', 'index.html'));
+	// });
+}
 
 app.listen(5000, () => {
 	console.log("Backend server started on port 5000.");
