@@ -28,7 +28,11 @@ prettier frontend for the [miniflux](https://miniflux.app/index.html) feed reade
 *coming soon...*
 
 ### Docker
-*coming soon...*
+1. clone the source from github
+2. open a terminal in the `herald/` directory.
+3. run `docker build -t katacarbix/herald .`
+4. copy `sample.env` to `.env` and enter your environment variables into this new file.
+5. start herald with `docker run -it --env-file=.env -p 80:5000 katacarbix/herald:latest`. you can stop it with `Ctrl+C`.
 
 ### Node JS (not recommended)
 1. download the source code from the [Releases section](#) and extract it. alternatively you can use `git clone https://github.com/katacarbix/herald` if you have git installed.

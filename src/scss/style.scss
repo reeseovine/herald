@@ -1,6 +1,7 @@
-@use "sass:math";
-@use 'highlight.js/scss/default.scss';
-@import 'bootstrap/scss/bootstrap.scss';
+@use 'sass:math';
+@use '~highlight.js/scss/default.scss';
+@import "BootstrapImport";
+// @import 'bootstrap/scss/bootstrap.scss';
 
 .article-title {
 	font-style: italic;
@@ -58,7 +59,7 @@ article {
 		display: grid;
 		grid-template-columns: repeat(2, 1fr);
 		grid-template-rows: masonry;
-		grid-gap: $spacer;
+		grid-gap: 1rem;
 		align-items: start;
 	}
 	@include media-breakpoint-down(md){

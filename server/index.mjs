@@ -30,9 +30,9 @@ app.use('/api', api);
 
 if (argv.production){
 	app.use(express.static('build'));
-	// app.all('*', (req, res) => {
-	// 	res.sendFile(path.resolve('build', 'index.html'));
-	// });
+	app.all('*', (req, res) => {
+		res.sendFile(path.resolve('build', 'index.html'));
+	});
 }
 
 app.listen(5000, () => {

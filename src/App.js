@@ -5,7 +5,7 @@ import { Header } from './components/Header';
 import { Content } from './components/Content';
 import { Footer } from './components/Footer';
 
-import './style.scss';
+import './scss/style.scss';
 
 import Cookies from 'js-cookie';
 
