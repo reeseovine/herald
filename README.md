@@ -1,6 +1,7 @@
-# herald
-
-prettier frontend for the [miniflux](https://miniflux.app/index.html) feed reader using express, react, and bootstrap
+<div align="center">
+  <img src="img/wordmark.svg" height=128 alt="Herald logo"><br>
+  prettier frontend for the <a href="https://miniflux.app/index.html">miniflux</a> feed reader using express, react, and bootstrap
+</div>
 
 ### NOTE: this project is in beta and is not very stable or featureful. proceed at your own risk!
 
