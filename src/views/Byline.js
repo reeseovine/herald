@@ -22,7 +22,7 @@ export class Byline extends Component {
 
 	render(){
 		return (
-			<div className={`clearfix fw-light fst-italic ${this.props.className}
+			<div className={`byline clearfix fw-light fst-italic ${this.props.className}
 				${this.props.isLight ?
 					(this.props.lightTextClass || 'text-muted') :
 					(this.props.darkTextClass || 'text-light') }`}>
