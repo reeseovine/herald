@@ -91,7 +91,6 @@ let getImages = (content, options) => {
 		if (img) result.push(ReactHtmlParser(img.outerHTML)[0]);
 		if (options.count >= 1 && result.length == options.count) break;
 	}
-	console.log(result);
 	return result;
 }
 
