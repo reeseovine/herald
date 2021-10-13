@@ -24,7 +24,7 @@ jobs:
         uses: docker/metadata-action@v3
         with:
           images: katacarbix/herald
-          tags: type=raw
+          tags: type=semver,pattern={{raw}}
           flavor: latest=true
 
       - name: Build and push Docker image

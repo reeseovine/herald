@@ -28,7 +28,7 @@ main(){
 	# create releasepath
 	if [ ! -d "$releasepath" ]; then mkdir -p "$releasepath"; fi
 
-	build react app
+	# build react app
 	yarn build
 
 	mkzip
