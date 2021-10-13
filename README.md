@@ -43,6 +43,12 @@
 4. copy `sample.env` to `.env` and enter your environment variables into this new file.
 5. start herald with `yarn production`. you will need to run this command and leave the terminal open every time you want to start it. you can stop herald with `Ctrl+C`.
 
+## Docker tags
+
+- `latest` - The most recent stable release
+- `edge` - The most recent commit, may not be stable
+- `v0.1.1`, etc. - A specific version from the repo's tags/releases
+
 ## environment variables
 
 | variable name           | example value                                                             |
