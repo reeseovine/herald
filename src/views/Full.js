@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import manip from '../content_manipulation';
 
-import hljs from 'highlight.js/lib/common.js';
-
 import { Byline } from './Byline';
 
 export class Full extends Component {
@@ -26,8 +24,6 @@ export class Full extends Component {
 	}
 
 	componentDidMount(){
-		hljs.highlightAll();
-
 		document.addEventListener('scroll', this.scrollSpy);
 	}
 

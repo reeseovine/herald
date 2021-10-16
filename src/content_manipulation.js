@@ -1,5 +1,5 @@
 import 'highlight.js/scss/default.scss';
-import hljs from 'highlight.js/lib/common.js';
+import Highlight from 'react-highlight'
 
 import dayjs from 'dayjs';
 import relaTime from 'dayjs/plugin/relativeTime';
@@ -65,13 +65,21 @@ let getText = (content, options) => {
 	})
 
 	let result = [];
-	for (var child of e.children){
-		if (options.parasOnly && child.tagName != 'P') continue;
-		let img = _matchImg(child, options.figures);
+	for (var node of e.children){
+		if (options.parasOnly && node.tagName != 'P') continue;
+		let img = _matchImg(node, options.figures);
 		if (options.images && img){
 			result.push(ReactHtmlParser(img.outerHTML, {transform: options.transform})[0]);
 		} else if (!img){
-			result.push(ReactHtmlParser(_swapPs(child, options.paras).outerHTML, {transform: options.transform})[0]);
+			if (node.tagName === 'PRE' && node.children.item(0).tagName === 'CODE'){
+				result.push(
+					<Highlight>
+						{node.innerText}
+					</Highlight>
+				);
+			} else {
+				result.push(ReactHtmlParser(_swapPs(node, options.paras).outerHTML, {transform: options.transform})[0]);
+			}
 		}
 		if (options.count >= 1 && result.length == options.count) break;
 	}

@@ -1,5 +1,4 @@
 @use 'sass:math';
-@use '~highlight.js/scss/default.scss';
 @import "BootstrapImport";
 
 .article-title {
@@ -15,7 +14,7 @@ article {
 		max-width: 100%;
 	}
 
-	figure, table {
+	figure, .table {
 		color: unset;
 	}
 
@@ -60,6 +59,13 @@ article {
 
 .hljs {
 	padding: $spacer;
+}
+// Highlight.js themes. Different theme for light and dark mode.
+.light-theme {
+	@import '~highlight.js/scss/base16/harmonic16-light.scss';
+}
+.dark-theme {
+	@import '~highlight.js/scss/base16/harmonic16-dark.scss';
 }
 
 .masonry {

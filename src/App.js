@@ -27,7 +27,7 @@ export class App extends Component {
 
 	render(){
 		return (
-			<div className={this.state.isLight ? 'bg-body text-body' : 'bg-dark text-light'}>
+			<div className={this.state.isLight ? 'light-theme bg-body text-body' : 'dark-theme bg-dark text-light'}>
 				<Container fluid="lg" className="d-flex flex-column min-vh-100">
 					<Header isLight={this.state.isLight} lightswitch={this.lightswitch} />
 					<main className="flex-grow-1">
