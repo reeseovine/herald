@@ -5,7 +5,7 @@ import { Spinner } from 'react-bootstrap';
 export class Loader extends Component {
 	render() {
 		return (
-			<div className="text-center py-5">
+			<div className={`text-center py-5 ${this.props.className}`}>
 				<Spinner animation="border" variant="secondary" role="status">
 					<span className="visually-hidden">Loading...</span>
 				</Spinner>

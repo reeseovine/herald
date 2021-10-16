@@ -20,7 +20,10 @@ let _matchImg = (node, figures) => {
 	if (node.tagName == 'IMG' || node.tagName == 'FIGURE'){
 		if (!figures && node.tagName == 'FIGURE'){
 			let img = node.querySelector('img');
-			if (img) return img;
+			if (img){
+				img.setAttribute('loading', 'lazy');
+				return img;
+			}
 		} else {
 			return node;
 		}
