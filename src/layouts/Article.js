@@ -5,15 +5,19 @@ import { Row, Col } from 'react-bootstrap';
 import { Full } from '../views/Full';
 import { Sidebar } from './Sidebar';
 
+import { Error } from '../components/Error';
 import { Loader } from '../components/Loader';
 
 export class Article extends Component {
 	constructor(){
 		super();
-		this.state = {};
+		this.state = {
+			error: false
+		};
 	}
 
 	componentDidMount(){
+		// fetch article
 		fetch(`/api/feed/${this.props.entry.feedType}/${this.props.entry.feedId}`)
 			.then((response) => response.json())
 			.then((feed) => {
@@ -22,11 +26,16 @@ export class Article extends Component {
 					category_id: feed[0].feed.category.id
 				});
 				document.title = `${feed[0].title} | Herald`;
+			}).catch(err => {
+				console.error(err);
+				this.setState({error: true});
 			});
 	}
 
 	render(){
-		if (this.state.entry){
+		if (this.state.error) {
+			return <Error code={404} />;
+		} else if (this.state.entry){
 			return (
 				<Row>
 					<Col xs md={8} className="px-4 pe-xxl-5">

@@ -41,7 +41,7 @@ export class Search extends Component {
 					this.setState({total: feed.total});
 				}
 				let endOfFeed = false;
-				if (feed.length < 8){
+				if (feed.entries.length < 8){
 					endOfFeed = true;
 				}
 				this.setState({
@@ -83,17 +83,16 @@ export class Search extends Component {
 	render(){
 		return (
 			<>
-				<Row>
-					<Col xs sm={{span: 10, offset: 1}} xl={{span: 8, offset: 2}} className="px-4">
-						<h1 className={`fw-light mb-4 py-3 border-bottom ${this.props.isLight ? '' : 'border-secondary'}`}>{this.state.total} matches for "{this.props.query}".</h1>
-					</Col>
-				</Row>
+				<h2 className="fw-light my-4">{this.state.total} match{this.state.total === 1 ? '' : 'es'} for "{this.props.query}".</h2>
 				<div className="masonry">
 					{this.state.feed.map((entry, key) => {
 						return <MiniCard key={key} entry={entry} isLight={this.props.isLight} />
 					})}
 				</div>
 				<Loader ref={this.loaderRef} className={this.state.endOfFeed ? 'd-none' : ''} />
+				<div className={`text-center fst-italic  my-4 ${this.state.endOfFeed ? '' : 'd-none'}`}>
+					You've reached the end.
+				</div>
 			</>
 		);
 	}

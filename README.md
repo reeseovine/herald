@@ -12,6 +12,7 @@
 - Newspaper/magazine-like layout with Bootstrap
 - Light and dark mode
 - Responsive layout
+- Infinite scroll
 - Full-text search
 - Bookmarks
 - Basic weather widget

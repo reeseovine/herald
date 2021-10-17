@@ -25,11 +25,13 @@ export class Bookmarks extends Component {
 		this.setState({loading: true});
 		let offsetQuery = '';
 		if (this.state.feed.length > 0){
-			offsetQuery = '&offset='+this.state.offset*8;
+			offsetQuery = '?offset='+this.state.offset*8;
 		}
 		fetch(`/api/feed/bookmarks${offsetQuery}`)
-			.then((response) => response.json())
-			.then((feed) => {
+			.then((response) => {
+				console.log(response);
+				return response.json();
+			}).then((feed) => {
 				let endOfFeed = false;
 				if (feed.length < 8){
 					endOfFeed = true;
@@ -79,6 +81,9 @@ export class Bookmarks extends Component {
 					})}
 				</div>
 				<Loader ref={this.loaderRef} className={this.state.endOfFeed ? 'd-none' : ''} />
+				<div className={`text-center fst-italic  my-4 ${this.state.endOfFeed ? '' : 'd-none'}`}>
+					You've reached the end.
+				</div>
 			</>
 		);
 	}
