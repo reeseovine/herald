@@ -9,6 +9,7 @@
     "memory-cache": "^0.2.0",
     "node-fetch": "^3.0.0",
     "nodemon": "2.0.3",
+    "rewire": "^5.0.0",
     "url-join": "^4.0.1",
     "yargs": "^17.1.1"
   },
@@ -17,6 +18,8 @@
     "@mdi/react": "^1.5.0",
     "bootstrap": "5.1.1",
     "dayjs": "^1.10.7",
+    "favicons": "^6.2.2",
+    "favicons-webpack-plugin": "^4.2.0",
     "he": "^1.2.0",
     "highlight.js": "^11.2.0",
     "js-cookie": "^3.0.1",
@@ -36,7 +39,7 @@
     "serve": "nodemon -w server --experimental-modules --trace-warnings server/index.mjs",
     "start": "concurrently --names \"backend,frontend\" \"yarn serve\" \"react-scripts start\"",
     "production": "node --experimental-modules server/index.mjs --prod",
-    "build": "react-scripts build",
+    "build": "node ./build.js",
     "eject": "react-scripts eject"
   },
   "browserslist": {

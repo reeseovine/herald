@@ -34,9 +34,7 @@ app.use('/api', api);
 
 if (argv.production){
 	app.use('/static', express.static('build/static'));
-	app.use('/favicon', express.static('build/favicon'));
 	app.use('/asset-manifest.json', express.static('build/asset-manifest.json'));
-	app.use('/browserconfig.xml', express.static('build/browserconfig.xml'));
 	app.use('/robots.txt', express.static('build/robots.txt'));
 
 	// OpenWeatherMap fetcher
