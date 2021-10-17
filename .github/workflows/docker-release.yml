@@ -25,7 +25,8 @@ jobs:
         with:
           images: katacarbix/herald
           tags: type=semver,pattern={{raw}}
-          flavor: latest=true
+          labels: |
+            org.opencontainers.image.licenses=MIT
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v2

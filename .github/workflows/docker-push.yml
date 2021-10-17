@@ -20,8 +20,9 @@ jobs:
         uses: docker/metadata-action@v3
         with:
           images: katacarbix/herald
-          tags: type=edge
-          flavor: latest=false
+          tags: type=edge,branch=main
+          labels: |
+            org.opencontainers.image.licenses=MIT
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v2
