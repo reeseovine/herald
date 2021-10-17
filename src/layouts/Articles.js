@@ -16,7 +16,9 @@ export class Articles extends Component {
 			feedName: '',
 			error: false,
 			loading: false,
-			prevY: 0
+			endOfFeed: false,
+			prevY: 0,
+			offset: 0
 		};
 		this.loaderRef = React.createRef();
 	}
@@ -24,11 +26,11 @@ export class Articles extends Component {
 	loadFeed(){
 		if (this.state.loading){ return; }
 		this.setState({loading: true});
-		let beforeQuery = '';
+		let offsetQuery = '';
 		if (this.state.feed.length > 0){
-			beforeQuery = '?before='+this.state.feed[this.state.feed.length-1].id;
+			offsetQuery = '&offset='+this.state.offset*8;
 		}
-		fetch(`/api/feed/${this.props.feed.feedType}/${this.props.feed.feedId}${beforeQuery}`)
+		fetch(`/api/feed/${this.props.feed.feedType}/${this.props.feed.feedId}${offsetQuery}`)
 			.then((response) => {
 				if (response.status == 200){
 					return response.json()
@@ -37,9 +39,15 @@ export class Articles extends Component {
 					return [];
 				}
 			}).then((feed) => {
+				let endOfFeed = false;
+				if (feed.length < 8){
+					endOfFeed = true;
+				}
 				this.setState({
 					feed: this.state.feed.concat(feed),
-					loading: false
+					loading: false,
+					endOfFeed,
+					offset: this.state.offset+1
 				});
 
 				if (this.state.feedName === ''){
@@ -97,7 +105,7 @@ export class Articles extends Component {
 							return <Full key={key} entry={entry} isLight={this.props.isLight} />
 						})}
 					</Col>
-					<Loader ref={this.loaderRef} />
+					<Loader ref={this.loaderRef} className={this.state.endOfFeed ? 'd-none' : ''} />
 				</Row>
 			);
 		}

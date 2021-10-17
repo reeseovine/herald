@@ -21,10 +21,10 @@ let _matchImg = (node, figures) => {
 		if (!figures && node.tagName == 'FIGURE'){
 			let img = node.querySelector('img');
 			if (img){
-				img.setAttribute('loading', 'lazy');
 				return img;
 			}
 		} else {
+			node.querySelectorAll('img').forEach(i => i.setAttribute('loading', 'lazy'));
 			return node;
 		}
 	} else if (node.querySelector('a>img:only-child')){
@@ -71,7 +71,7 @@ let getText = (content, options) => {
 		if (options.images && img){
 			result.push(ReactHtmlParser(img.outerHTML, {transform: options.transform})[0]);
 		} else if (!img){
-			if (node.tagName === 'PRE' && node.children.item(0).tagName === 'CODE'){
+			if (node.tagName === 'PRE' && node.children.length > 0 && node.children.item(0).tagName === 'CODE'){
 				result.push(
 					<Highlight>
 						{node.innerText}

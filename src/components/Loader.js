@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Spinner } from 'react-bootstrap';
 
 export class Loader extends Component {
-	render() {
+	render(){
 		return (
 			<div className={`text-center py-5 ${this.props.className}`}>
 				<Spinner animation="border" variant="secondary" role="status">

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 
 import { Row, Col } from 'react-bootstrap';
 
@@ -7,26 +8,74 @@ import { CardView } from '../views/Card';
 import { Full } from '../views/Full';
 import { Sidebar } from './Sidebar';
 
+import { Loader } from '../components/Loader';
+
 export class Frontpage extends Component {
 	constructor(){
 		super();
 		this.state = {
-			feed: []
+			feed: [],
+			loading: false,
+			endOfFeed: false,
+			prevY: 0,
+			offset: 0
 		};
+		this.loaderRef = React.createRef();
+	}
+
+	loadFeed(){
+		if (this.state.loading){ return; }
+		this.setState({loading: true});
+		let offsetQuery = '';
+		if (this.state.feed.length > 0){
+			offsetQuery = '&offset='+(this.state.offset+(this.state.offset===1 ? 3 : 0))*8;
+		}
+		fetch(`/api/feed${offsetQuery}`)
+			.then((response) => response.json())
+			.then((feed) => {
+				let endOfFeed = false;
+				if (feed.length < 8){
+					endOfFeed = true;
+				}
+				this.setState({
+					feed: this.state.feed.concat(feed),
+					loading: false,
+					endOfFeed,
+					offset: this.state.offset+1
+				});
+			});
+	}
+
+	handleObserver(entities, observer){
+		const y = entities[0].boundingClientRect.y;
+		if (this.state.prevY > y){
+			this.loadFeed();
+		}
+		this.setState({ prevY: y });
 	}
 
 	componentDidMount(){
 		document.title = `Front page | Herald`;
-		fetch(`/api/feed/`)
-			.then((response) => response.json())
-			.then((feed) => {
-				this.setState({feed});
-			});
+		this.loadFeed();
+
+		this.observer = new IntersectionObserver(
+			this.handleObserver.bind(this),
+			{
+				root: null,
+				rootMargin: "0px",
+				threshold: 1.0
+			}
+		);
+		this.observer.observe(ReactDOM.findDOMNode(this.loaderRef.current));
+	}
+
+	componentWillUnmount(){
+		this.observer = undefined;
 	}
 
 	render(){
 		return (
-			<div>
+			<>
 				<Hero entry={this.state.feed[0]} isLight={this.props.isLight} />
 				<Row className="mb-5">
 					<Col md={6} className="mb-3 mb-md-0"><CardView entry={this.state.feed[1]} isLight={this.props.isLight} /></Col>
@@ -38,8 +87,9 @@ export class Frontpage extends Component {
 							return <Full key={key} entry={entry} isLight={this.props.isLight} />
 						})}
 					</Col>
+					<Loader ref={this.loaderRef} className={this.state.endOfFeed ? 'd-none' : ''} />
 				</Row>
-			</div>
+			</>
 		);
 	}
 }

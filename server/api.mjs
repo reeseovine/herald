@@ -73,16 +73,16 @@ api.get('/categories', (req, res) => {
 
 // Get all unread articles
 api.get('/feed', cacheResponse(60), (req, res) => {
-	let before = req.query.hasOwnProperty('before') ? 'before_entry_id='+req.query.before : '';
-	api_get(`/entries?status=unread&limit=8&order=published_at&direction=desc&${before}`, (data) => {
+	let offsetQuery = req.query.hasOwnProperty('offset') ? 'offset='+req.query.offset : '';
+	api_get(`/entries?status=unread&limit=8&order=published_at&direction=desc&${offsetQuery}`, (data) => {
 		res.json(data.entries);
 	});
 });
 
 // Get unread articles in a category
 api.get('/feed/category/:id', cacheResponse(60), (req, res) => {
-	let before = req.query.hasOwnProperty('before') ? 'before_entry_id='+req.query.before : '';
-	api_get(`/entries?status=unread&limit=8&order=published_at&direction=desc&${before}&category_id=${req.params.id}`, (data, status) => {
+	let offsetQuery = req.query.hasOwnProperty('offset') ? 'offset='+req.query.offset : '';
+	api_get(`/entries?status=unread&limit=8&order=published_at&direction=desc&${offsetQuery}&category_id=${req.params.id}`, (data, status) => {
 		if (status !== 200){
 			return res.status(status).end();
 		}
@@ -92,8 +92,8 @@ api.get('/feed/category/:id', cacheResponse(60), (req, res) => {
 
 // Get unread articles from a source
 api.get('/feed/source/:id', cacheResponse(60), (req, res) => {
-	let before = req.query.hasOwnProperty('before') ? 'before_entry_id='+req.query.before : '';
-	api_get(`/feeds/${req.params.id}/entries?status=unread&limit=8&order=published_at&direction=desc&${before}`, (data, status) => {
+	let offsetQuery = req.query.hasOwnProperty('offset') ? 'offset='+req.query.offset : '';
+	api_get(`/feeds/${req.params.id}/entries?status=unread&limit=8&order=published_at&direction=desc&${offsetQuery}`, (data, status) => {
 		if (status !== 200){
 			return res.status(status).end();
 		}
@@ -103,8 +103,8 @@ api.get('/feed/source/:id', cacheResponse(60), (req, res) => {
 
 // Get bookmarked articles
 api.get('/feed/bookmarks', (req, res) => {
-	let before = req.query.hasOwnProperty('before') ? 'before_entry_id='+req.query.before : '';
-	api_get(`/entries?starred=true&limit=8&order=published_at&direction=desc&${before}`, (data) => {
+	let offsetQuery = req.query.hasOwnProperty('offset') ? 'offset='+req.query.offset : '';
+	api_get(`/entries?starred=true&limit=8&order=published_at&direction=desc&${offsetQuery}`, (data) => {
 		res.json(data.entries);
 	});
 });
@@ -121,8 +121,8 @@ api.get('/feed/article/:id', cacheResponse(300), (req, res) => {
 
 // Search for articles
 api.get('/search', cacheResponse(60), (req, res) => {
-	let before = req.query.hasOwnProperty('before') ? 'before_entry_id='+req.query.before : '';
-	api_get(`/entries?search=${req.query.q}&limit=8&order=published_at&direction=desc&${before}`, (data) => {
+	let offsetQuery = req.query.hasOwnProperty('offset') ? 'offset='+req.query.offset : '';
+	api_get(`/entries?search=${req.query.q}&limit=8&order=published_at&direction=desc&${offsetQuery}`, (data) => {
 		res.json(data);
 	});
 });
