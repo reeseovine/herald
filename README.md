@@ -2,7 +2,7 @@
   <img src="img/wordmark.svg" height=128 alt="Herald logo"><br>
   Prettier frontend for the <a href="https://miniflux.app/index.html">Miniflux</a> feed reader using Express, React, and Bootstrap<br>
   <a href="https://github.com/katacarbix/herald/releases"><img alt="GitHub release" src="https://img.shields.io/github/v/release/katacarbix/herald"></a>
-  <a href="https://github.com/katacarbix/herald/actions/workflows/docker-push.yml"><img src="https://github.com/katacarbix/herald/actions/workflows/docker-push.yml/badge.svg" alt="Build"></a>
+  <a href="https://github.com/katacarbix/herald/actions"><img alt="GitHub Workflow Status" src="https://img.shields.io/github/workflow/status/katacarbix/herald/Publish%20Docker%20image%20on%20git-push"></a>
   <a href="https://hub.docker.com/repository/docker/katacarbix/herald"><img alt="Docker Pulls" src="https://img.shields.io/docker/pulls/katacarbix/herald"></a>
 </div>
 
@@ -20,7 +20,7 @@
 
 ## Limitations
 - Intentionally implements only a subset of the Miniflux API to minimize potential damage that could be caused by malicious visitors.
-- Feed contents are only as good as what is provided by Miniflux. I recommend telling Miniflux to fetch the original contents and setting [rules](https://miniflux.app/docs/rules.html) to get the best quality.
+- Feed contents are only as good as what is provided by Miniflux. I recommend telling Miniflux to fetch original contents and setting [rules](https://miniflux.app/docs/rules.html) to get the best quality.
 - Opinionated. I'm making this for *me* first, and some of the design choices may reflect that.
 
 ## Setup
