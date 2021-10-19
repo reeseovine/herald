@@ -16,5 +16,5 @@ COPY --from=0 /home/node/build build
 RUN NODE_ENV=production yarn install
 
 # Finally...
-EXPOSE 5000
+EXPOSE ${PORT:-5000}
 CMD ["yarn", "production"]

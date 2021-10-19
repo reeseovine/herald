@@ -114,6 +114,7 @@ if (argv.production){
 	});
 }
 
-app.listen(5000, () => {
-	console.log("Backend server started on port 5000.");
+let serve_port = process.env.hasOwnProperty('PORT') && !isNaN(process.env.PORT) ? parseInt(process.env.PORT) : 5000;
+app.listen(serve_port, () => {
+	console.log(`Backend server started on port ${serve_port}.`);
 });

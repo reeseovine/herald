@@ -78,3 +78,4 @@ docker run -it -e MINIFLUX_API_ENDPOINT=<api url> MINIFLUX_API_KEY=<api key> -p 
 | `OWM_LONGITUDE`         | `-118.24368`                                                              |
 | `OWM_LANG`              | `en` (default, [see more](https://openweathermap.org/current#multi))      |
 | `OWM_UNITS`             | `standard` (default, [see more](https://openweathermap.org/current#data)) |
+| `PORT`                  | `5000` (default)                                                          |
