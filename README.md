@@ -4,6 +4,7 @@
   <a href="https://github.com/katacarbix/herald/releases"><img alt="GitHub release" src="https://img.shields.io/github/v/release/katacarbix/herald"></a>
   <a href="https://github.com/katacarbix/herald/actions"><img alt="GitHub Workflow Status" src="https://img.shields.io/github/workflow/status/katacarbix/herald/Publish%20Docker%20image%20on%20git-push"></a>
   <a href="https://hub.docker.com/repository/docker/katacarbix/herald"><img alt="Docker Pulls" src="https://img.shields.io/docker/pulls/katacarbix/herald"></a>
+  <a href="LICENSE"><img alt="License" src="https://img.shields.io/github/license/katacarbix/herald"></a>
 </div>
 
 #### NOTE: This project is in beta and is not guaranteed to be stable. Proceed at your own risk!
@@ -61,13 +62,11 @@ docker run -it -e MINIFLUX_API_ENDPOINT=<api url> MINIFLUX_API_KEY=<api key> -p 
 5. Start Herald with `yarn production`. You will need to run this command and leave the terminal open every time you want to start it. You can stop Herald with `Ctrl+C`.
 
 ## Docker tags
-
 - `latest` - The most recent stable release
 - `edge` - The most recent commit, may not be stable
 - `v0.1.1`, etc. - A specific version from the repo's tags/releases
 
 ## Environment variables
-
 | variable name           | example value                                                             |
 |:------------------------|:--------------------------------------------------------------------------|
 | `MINIFLUX_API_ENDPOINT` | `http://localhost:1234/v1/`                                               |
