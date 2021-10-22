@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
+import { withRouter } from 'react-router-dom';
+
 import { Row, Col } from 'react-bootstrap';
 
 import { Full } from '../views/Full';
@@ -8,7 +10,7 @@ import { Full } from '../views/Full';
 import { Error } from '../components/Error';
 import { Loader } from '../components/Loader';
 
-export class Articles extends Component {
+class Articles extends Component {
 	constructor(){
 		super();
 		this.state = {
@@ -30,12 +32,12 @@ export class Articles extends Component {
 		if (this.state.feed.length > 0){
 			offsetQuery = '&offset='+this.state.offset*8;
 		}
-		fetch(`/api/feed/${this.props.feed.feedType}/${this.props.feed.feedId}${offsetQuery}`)
+		fetch(`/api/feed/${this.props.type}/${this.props.match.params.id}${offsetQuery}`)
 			.then((response) => {
 				if (response.status == 200){
 					return response.json()
 				} else {
-					this.setState({error: true});
+					this.setState({error: response.status});
 					return [];
 				}
 			}).then((feed) => {
@@ -53,7 +55,7 @@ export class Articles extends Component {
 				if (this.state.feedName === ''){
 					let feedName = '';
 					if (feed.length > 0){
-						switch (this.props.feed.feedType){
+						switch (this.props.type){
 							case 'category':
 								feedName = feed[0].feed.category.title;
 								break;
@@ -65,6 +67,9 @@ export class Articles extends Component {
 					document.title = `${feedName} | Herald`;
 					this.setState({feedName});
 				}
+			}).catch(err => {
+				console.error(err);
+				this.setState({error: 500});
 			});
 	}
 
@@ -96,7 +101,7 @@ export class Articles extends Component {
 
 	render(){
 		if (this.state.error){
-			return <Error code={404} />;
+			return <Error code={this.state.error} />;
 		} else {
 			return (
 				<Row>
@@ -114,3 +119,5 @@ export class Articles extends Component {
 		}
 	}
 }
+
+export default withRouter(Articles);
