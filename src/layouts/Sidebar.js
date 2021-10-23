@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import manip from '../content_manipulation';
 
 import { Loader } from '../components/Loader';

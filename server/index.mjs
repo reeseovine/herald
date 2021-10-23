@@ -31,10 +31,8 @@ let argv = yargs(process.argv.slice(2))
 // Miniflux API wrapper
 app.use('/api', api);
 
-
 if (argv.production){
 	app.use('/static', express.static('build/static'));
-	app.use('/asset-manifest.json', express.static('build/asset-manifest.json'));
 	app.use('/robots.txt', express.static('build/robots.txt'));
 
 	// OpenWeatherMap fetcher
@@ -91,7 +89,6 @@ if (argv.production){
 			return `The ${adjectives[getIndex(new Date().toDateString(), adjectives.length)]} ${nouns[getIndex(new Date().toLocaleDateString(), nouns.length)]}`;
 		}
 	}
-
 
 	// Template engine for less volatile variables on the page
 	app.engine('html', (filePath, options, callback) => {

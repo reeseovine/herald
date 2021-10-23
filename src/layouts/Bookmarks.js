@@ -29,7 +29,6 @@ export class Bookmarks extends Component {
 		}
 		fetch(`/api/feed/bookmarks${offsetQuery}`)
 			.then((response) => {
-				console.log(response);
 				return response.json();
 			}).then((feed) => {
 				let endOfFeed = false;

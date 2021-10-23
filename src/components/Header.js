@@ -46,7 +46,7 @@ export class Header extends Component {
 					<Col xs={12} sm={6} md={4} className={`my-1 my-md-0 order-3 d-flex align-items-center justify-content-center ${this.props.isLight ? 'text-secondary' : 'text-light'}`}>
 						<Icon path={mdiRefresh} title="Refresh" onClick={this.refreshFeeds} size={1} role="button" />
 						<Icon
-							path= {this.props.isLight ? mdiWeatherNight : mdiWeatherSunny}
+							path={this.props.isLight ? mdiWeatherNight : mdiWeatherSunny}
 							title={this.props.isLight ? 'Dark theme'    : 'Light theme'}
 							size={1} role="button" className="ms-3"
 							onClick={this.props.lightswitch} />

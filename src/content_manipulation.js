@@ -114,7 +114,7 @@ let dateFmt = (str, options) => {
 }
 
 let sanitize = (str) => {
-	return he.decode(str);
+	return he.decode(str); // is it feasible to do this without dependencies? or is this even necessary at all?
 }
 
 let markAsRead = (id, read) => {

@@ -1,3 +1,4 @@
 # https://www.robotstxt.org/robotstxt.html
+## tells search crawlers to not index this site at all.
 User-agent: *
-Disallow:
+Disallow: /
