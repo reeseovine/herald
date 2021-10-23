@@ -35,7 +35,7 @@ Screenshots can be found at [the end](#what-does-herald-look-like) of this docum
 
 ### Docker Compose
 ```yaml
-version: '3.3'
+version: '3.8'
 services:
   miniflux:
     image: miniflux/miniflux:latest
@@ -44,7 +44,7 @@ services:
     ...
   
   herald:
-    image: katacarbix/herald:latest
+    image: katacarbix/herald:latest # see below section for list of tags
     ports:
       - 80:5000
     environment:
@@ -57,30 +57,30 @@ services:
 docker run -it -e MINIFLUX_API_ENDPOINT=<api url> MINIFLUX_API_KEY=<api key> -p 80:5000 katacarbix/herald:latest
 ```
 
-### NodeJS (not recommended)
-1. Download the compiled code from [Releases](https://github.com/katacarbix/herald/releases) and extract it.
-2. Open a terminal in the extracted directory.
-3. Run `npm install --only=prod`.
-4. Copy `sample.env` to `.env` and enter your environment variables into this new file.
-5. Start Herald with `yarn production`. You will need to run this command and leave the terminal open every time you want to start it. You can stop it with `Ctrl+C`.
+### Bare metal
+1. Download the prepared code from [Releases](https://github.com/katacarbix/herald/releases) and extract it.
+2. Copy `sample.env` to `.env` and enter your environment variables into this new file.
+3. Open a terminal and `cd` into the extracted directory.
+4. Start Herald with `npm run production` (or `yarn production` if you have that installed).  
+   You will need to run this command and leave the terminal open every time you want to start it. You can stop it with `Ctrl+C`.
 
 ## Docker tags
 - `latest` - The most recent stable release
 - `edge` - The most recent commit, may not be stable
-- `v0.1.1`, etc. - A specific version from the repo's tags/releases
+- `v0`, `v0.2`, `v0.2.0`, `v0.1`, `v0.1.1` - A major/minor/patch version (note the leading `v`)
 
 ## Environment variables
-| variable name           | description                                                                        | example value                                         |
-|:------------------------|:-----------------------------------------------------------------------------------|:------------------------------------------------------|
-| `MINIFLUX_API_ENDPOINT` | URL to your Miniflux instance's API                                                | `http://localhost:1234/v1/`                           |
-| `MINIFLUX_API_KEY`      | Miniflux API key                                                                   | `eW91IGZvdW5kIGEgc2VjcmV0IG1lc3NhZ2UhISEgOkQ=`        |
-| `NEWSPAPER_NAME`        | Title shown at the top of each page. Doesn't affect window/tab title.              | `The Daily Bugle` (default is procedurally generated) |
-| `OWM_API_KEY`           | OpenWeatherMap API key (only required if you want the weather at the top)          | `68656c6c6f20616761696e2121203a44`                    |
-| `OWM_LATITUDE`          | Your location for the weather                                                      | `40.742054`                                           |
-| `OWM_LONGITUDE`         | =                                                                                  | `-73.769417`                                          |
-| `OWM_LANG`              | Language ([see options](https://openweathermap.org/current#multi))                 | `en` (default)                                        |
-| `OWM_UNITS`             | Unit system ([see options](https://openweathermap.org/current#data))               | `standard` (default)                                  |
-| `PORT`                  | Port to expose Herald on. This would be on the right side for Docker port mapping. | `5000` (default)                                      |
+| variable name           | description                                                                                  | example value                                         |
+|:------------------------|:---------------------------------------------------------------------------------------------|:------------------------------------------------------|
+| `MINIFLUX_API_ENDPOINT` | URL to your Miniflux instance's API. Required.                                               | `http://localhost:1234/v1/`                           |
+| `MINIFLUX_API_KEY`      | Miniflux API key. Required.                                                                  | `eW91IGZvdW5kIGEgc2VjcmV0IG1lc3NhZ2UhISEgOkQ=`        |
+| `NEWSPAPER_NAME`        | Title shown at the top of each page. Doesn't affect window/tab title. Optional.              | `The Daily Bugle` (default is procedurally generated) |
+| `OWM_API_KEY`           | OpenWeatherMap API key (only required if you want the weather at the top)                    | `68656c6c6f20616761696e2121203a44`                    |
+| `OWM_LATITUDE`          | Your location for the weather                                                                | `40.742054`                                           |
+| `OWM_LONGITUDE`         | =                                                                                            | `-73.769417`                                          |
+| `OWM_LANG`              | Language ([see options](https://openweathermap.org/current#multi))                           | `en` (default)                                        |
+| `OWM_UNITS`             | Unit system ([see options](https://openweathermap.org/current#data))                         | `standard` (default)                                  |
+| `PORT`                  | Port to expose Herald on. This would be on the right side for Docker port mapping. Optional. | `5000` (default)                                      |
 
 ## What does Herald look like?
 |                                                       |                                                          |
