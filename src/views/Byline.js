@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import manip from '../content_manipulation';
 
 import Icon from '@mdi/react';
@@ -22,29 +22,29 @@ export class Byline extends Component {
 
 	render(){
 		return (
-			<div className={`byline clearfix fw-light fst-italic ${this.props.className}
+			<div className={`byline clearfix fw-light fst-italic ${this.props.className || ''}
 				${this.props.isLight ?
 					(this.props.lightTextClass || 'text-muted') :
 					(this.props.darkTextClass || 'text-light') }`}>
 				<span className="float-start">
 					<a href={'/category/'+this.props.entry.feed.category.id}
-					   className={`text-capitalize text-decoration-none
+						className={`text-capitalize text-decoration-none
 							${this.props.isLight ?
 								(this.props.lightLinkClass || 'link-dark') :
 								(this.props.darkLinkClass || 'link-light') }`}>
 						{manip.sanitize(this.props.entry.feed.category.title)}
 					</a> &mdash; <a href={'/source/'+this.props.entry.feed.id}
-									className={`text-decoration-none
-										${this.props.isLight ?
-											(this.props.lightLinkClass || 'link-dark') :
-											(this.props.darkLinkClass || 'link-light') }`}>
+						className={`text-decoration-none
+							${this.props.isLight ?
+								(this.props.lightLinkClass || 'link-dark') :
+								(this.props.darkLinkClass || 'link-light') }`}>
 						{manip.sanitize(this.props.entry.feed.title)}
 					</a> &mdash; <a href={this.props.entry.url} target="_blank"
-									title={manip.dateFmt(this.props.entry.published_at)}
-									className={`text-decoration-none
-										${this.props.isLight ?
-											(this.props.lightLinkClass || 'link-dark') :
-											(this.props.darkLinkClass || 'link-light') }`}>
+						title={manip.dateFmt(this.props.entry.published_at)}
+						className={`text-decoration-none
+							${this.props.isLight ?
+								(this.props.lightLinkClass || 'link-dark') :
+								(this.props.darkLinkClass || 'link-light') }`}>
 						{manip.dateFmt(this.props.entry.published_at, {relative: true})}
 					</a>
 				</span>
@@ -53,7 +53,7 @@ export class Byline extends Component {
 						path={mdiBookmarkOutline}
 						size={1}
 						role="button"
-						className={this.state.bookmarked ? 'text-warning' : ''}
+						className={`${this.state.bookmarked ? 'text-warning' : ''}`}
 						title={this.state.bookmarked ? 'Remove bookmark' : 'Bookmark'}
 						onClick={(e) => {
 							manip.bookmark(this.props.entry.id)

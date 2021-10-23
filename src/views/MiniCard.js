@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { Card, Row, Col } from 'react-bootstrap';
 import manip from '../content_manipulation';
 
@@ -21,7 +21,7 @@ export class MiniCard extends Component {
 			if (images.length > 0){
 				let cardImg = <Card.Img src={images[0].props.src} alt={images[0].props.alt} />;
 				topSection = (
-					<Row className="g-0" style={{transform: "translate(0)"}}>
+					<Row className="g-0 position-relative">
 						<Col xs={8}>
 							{title}
 						</Col>
