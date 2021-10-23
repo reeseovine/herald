@@ -1,10 +1,6 @@
 # Stage 0: Build React frontend
 FROM andreysenov/node-gyp:latest
-ADD package.json yarn.lock ./
-ADD img/logo.svg img/
-ADD scripts scripts
-ADD public public
-ADD src src
+ADD . .
 RUN NODE_ENV=development yarn install && yarn build
 
 # Stage 1: Server setup
