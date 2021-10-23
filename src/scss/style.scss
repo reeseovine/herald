@@ -49,6 +49,13 @@ article {
 	}
 }
 
+.card, .minicard {
+	.byline > * {
+		position: relative;
+		z-index: 20;
+	}
+}
+
 .minicard {
 	img.card-img {
 		object-fit: cover;

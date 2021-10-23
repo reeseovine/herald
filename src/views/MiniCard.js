@@ -11,7 +11,9 @@ export class MiniCard extends Component {
 			let title = (
 				<Card.Body className="pb-0">
 					<div className="article-title card-title h4 fw-light">
-						<a href={'/article/'+this.props.entry.id} className="stretched-link">{manip.sanitize(this.props.entry.title)}</a>
+						<a href={'/article/'+this.props.entry.id} className="stretched-link">
+							{manip.sanitize(this.props.entry.title)}
+						</a>
 					</div>
 				</Card.Body>
 			);
@@ -21,7 +23,7 @@ export class MiniCard extends Component {
 			if (images.length > 0){
 				let cardImg = <Card.Img src={images[0].props.src} alt={images[0].props.alt} />;
 				topSection = (
-					<Row className="g-0 position-relative">
+					<Row className="g-0">
 						<Col xs={8}>
 							{title}
 						</Col>
