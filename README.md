@@ -10,19 +10,20 @@
 #### NOTE: This project is in beta and is not guaranteed to be stable. Proceed at your own risk!
 
 ## Features
-- Newspaper/magazine-like layout with Bootstrap
+- Responsive newspaper/magazine-like layout with Bootstrap
 - Light and dark mode
-- Responsive layout
 - Infinite scroll
 - Full-text search
 - Bookmarks
-- Basic weather widget
+- Basic weather widget (only supports OpenWeatherMap for now)
 - Syntax highlighting in code blocks powered by [highlight.js](https://highlightjs.org/)
 - Mark articles as read just by scrolling to the bottom (or with a button)
 
+Screenshots can be found at [the end](#what-does-herald-look-like) of this document.
+
 ## Limitations
 - Intentionally implements only a subset of the Miniflux API to minimize potential damage that could be caused by malicious visitors.
-- Feed contents are only as good as what is provided by Miniflux. I recommend telling Miniflux to fetch original contents and setting [rules](https://miniflux.app/docs/rules.html) to get the best quality.
+- Article contents are only as good as what is provided by Miniflux. I recommend telling Miniflux to fetch original contents and setting [rules](https://miniflux.app/docs/rules.html) to get the best quality.
 - Opinionated. I'm making this for *me* first, and some of the design choices may reflect that.
 
 ## Setup
@@ -38,6 +39,8 @@ version: '3.3'
 services:
   miniflux:
     image: miniflux/miniflux:latest
+    ports:
+      - 1234:8080
     ...
   
   herald:
@@ -45,7 +48,7 @@ services:
     ports:
       - 80:5000
     environment:
-      - MINIFLUX_API_ENDPOINT=<api url>
+      - MINIFLUX_API_ENDPOINT=http://miniflux:1234/v1/
       - MINIFLUX_API_KEY=<api key>
 ```
 
@@ -54,12 +57,12 @@ services:
 docker run -it -e MINIFLUX_API_ENDPOINT=<api url> MINIFLUX_API_KEY=<api key> -p 80:5000 katacarbix/herald:latest
 ```
 
-### Node JS (not recommended)
+### NodeJS (not recommended)
 1. Download the compiled code from [Releases](https://github.com/katacarbix/herald/releases) and extract it.
-2. Open a terminal in the `herald/` directory.
+2. Open a terminal in the extracted directory.
 3. Run `npm install --only=prod`.
 4. Copy `sample.env` to `.env` and enter your environment variables into this new file.
-5. Start Herald with `yarn production`. You will need to run this command and leave the terminal open every time you want to start it. You can stop Herald with `Ctrl+C`.
+5. Start Herald with `yarn production`. You will need to run this command and leave the terminal open every time you want to start it. You can stop it with `Ctrl+C`.
 
 ## Docker tags
 - `latest` - The most recent stable release
@@ -67,14 +70,21 @@ docker run -it -e MINIFLUX_API_ENDPOINT=<api url> MINIFLUX_API_KEY=<api key> -p 
 - `v0.1.1`, etc. - A specific version from the repo's tags/releases
 
 ## Environment variables
-| variable name           | example value                                                             |
-|:------------------------|:--------------------------------------------------------------------------|
-| `MINIFLUX_API_ENDPOINT` | `http://localhost:1234/v1/`                                               |
-| `MINIFLUX_API_KEY`      | `Z2l0aHViLmNvbS9rYXRhY2FyYml4L3RyaWJ1bmUgICA=`                            |
-| `NEWSPAPER_NAME`        | `The Daily Bugle`                                                         |
-| `OWM_API_KEY`           | `68656c6c6f20746865726521203a4420`                                        |
-| `OWM_LATITUDE`          | `34.05223`                                                                |
-| `OWM_LONGITUDE`         | `-118.24368`                                                              |
-| `OWM_LANG`              | `en` (default, [see more](https://openweathermap.org/current#multi))      |
-| `OWM_UNITS`             | `standard` (default, [see more](https://openweathermap.org/current#data)) |
-| `PORT`                  | `5000` (default)                                                          |
+| variable name           | description                                                                        | example value                                         |
+|:------------------------|:-----------------------------------------------------------------------------------|:------------------------------------------------------|
+| `MINIFLUX_API_ENDPOINT` | URL to your Miniflux instance's API                                                | `http://localhost:1234/v1/`                           |
+| `MINIFLUX_API_KEY`      | Miniflux API key                                                                   | `eW91IGZvdW5kIGEgc2VjcmV0IG1lc3NhZ2UhISEgOkQ=`        |
+| `NEWSPAPER_NAME`        | Title shown at the top of each page. Doesn't affect window/tab title.              | `The Daily Bugle` (default is procedurally generated) |
+| `OWM_API_KEY`           | OpenWeatherMap API key (only required if you want the weather at the top)          | `68656c6c6f20616761696e2121203a44`                    |
+| `OWM_LATITUDE`          | Your location for the weather                                                      | `40.742054`                                           |
+| `OWM_LONGITUDE`         | =                                                                                  | `-73.769417`                                          |
+| `OWM_LANG`              | Language ([see options](https://openweathermap.org/current#multi))                 | `en` (default)                                        |
+| `OWM_UNITS`             | Unit system ([see options](https://openweathermap.org/current#data))               | `standard` (default)                                  |
+| `PORT`                  | Port to expose Herald on. This would be on the right side for Docker port mapping. | `5000` (default)                                      |
+
+## What does Herald look like?
+|                                                       |                                                          |
+|:-----------------------------------------------------:|:--------------------------------------------------------:|
+| ![Front page (light)](img/screenshots/frontpage.png)  | ![Front page (dark)](img/screenshots/frontpage-dark.png) |
+| ![Single article](img/screenshots/single-article.png) |       ![Code block](img/screenshots/codeblock.png)       |
+|      ![Bookmarks](img/screenshots/bookmarks.png)      |      ![Search results](img/screenshots/search.png)       |
