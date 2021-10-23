@@ -24,7 +24,10 @@ jobs:
         uses: docker/metadata-action@v3
         with:
           images: katacarbix/herald
-          tags: type=semver,pattern={{raw}}
+          tags: |
+            type=semver,pattern=v{{major}}
+            type=semver,pattern=v{{major}}.{{minor}}
+            type=semver,pattern=v{{major}}.{{minor}}.{{patch}}
           labels: |
             org.opencontainers.image.licenses=MIT
 
