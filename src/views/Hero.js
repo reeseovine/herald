@@ -11,8 +11,15 @@ export class Hero extends Component {
 	}
 	render(){
 		if (this.props.entry){
+			let image = manip.getImages(this.props.entry.content, {count: 1, figures: false});
+			let bg_img = '';
+			if (image.length > 0){
+				bg_img = image[0].props.src;
+			}
+
 			return (
-				<div className={`hero p-4 p-md-5 mb-3 text-white rounded ${this.props.isLight ? 'bg-dark' : 'bg-black'}`}>
+				<div className={`hero p-4 p-md-5 mb-3 text-white rounded bg-dark ${this.props.isLight ? '' : 'border border-secondary'}`}
+					style={{backgroundImage: `url(${bg_img})`}}>
 					<h1 className="article-title display-4">
 						<a href={'/article/'+this.props.entry.id}>{manip.sanitize(this.props.entry.title)}</a>
 					</h1>

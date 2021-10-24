@@ -111,7 +111,7 @@ class Articles extends Component {
 						})}
 					</Col>
 					<Loader ref={this.loaderRef} className={this.state.endOfFeed ? 'd-none' : ''} />
-					<div className={`text-center fst-italic  my-4 ${this.state.endOfFeed ? '' : 'd-none'}`}>
+					<div className={`text-center fst-italic my-4 text-secondary ${this.state.endOfFeed ? '' : 'd-none'}`}>
 						You've reached the end.
 					</div>
 				</Row>

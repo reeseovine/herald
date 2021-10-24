@@ -48,10 +48,10 @@ class Article extends Component {
 		} else if (this.state.entry){
 			return (
 				<Row>
-					<Col xs={12} md={8} className="px-4 pe-xxl-5">
+					<Col xs={12} sm={{span: 10, offset: 1}} lg={{span: 8, offset: 0}} className="px-4 pe-xxl-5">
 						<Full entry={this.state.entry} isLight={this.props.isLight} />
 					</Col>
-					<Col xs={12} md={4}>
+					<Col xs={12} sm={{span: 8, offset: 2}} lg={{span: 4, offset: 0}}>
 						<Sidebar type="category" id={this.state.category_id} exclude={[this.state.entry.id]} isLight={this.props.isLight} />
 					</Col>
 				</Row>

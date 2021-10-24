@@ -21,32 +21,53 @@ export class Byline extends Component {
 	}
 
 	render(){
+		// Generate segments for the left hand side
+		let segments = [];
+		if (!this.props.hideAuthor && this.props.entry.author.length > 0){
+			segments.push( // author
+				<span className="text-capitalize">
+					{manip.sanitize(this.props.entry.author)}
+				</span>
+			, ' — ');
+		}
+		segments.push( // category
+			<a href={'/category/'+this.props.entry.feed.category.id}
+				className={`text-capitalize text-decoration-none
+					${this.props.isLight ?
+						(this.props.lightLinkClass || 'link-dark') :
+						(this.props.darkLinkClass || 'link-light') }`}>
+				{manip.sanitize(this.props.entry.feed.category.title)}
+			</a>
+		, ' — ');
+		if (!this.props.hideSource){
+			segments.push(
+				<a href={'/source/'+this.props.entry.feed.id}
+					className={`text-decoration-none
+						${this.props.isLight ?
+							(this.props.lightLinkClass || 'link-dark') :
+							(this.props.darkLinkClass || 'link-light') }`}>
+					{manip.sanitize(this.props.entry.feed.title)}
+				</a>
+			, ' — ');
+		}
+		segments.push(
+			<a href={this.props.entry.url} target="_blank"
+				title={manip.dateFmt(this.props.entry.published_at)}
+				className={`text-decoration-none
+					${this.props.isLight ?
+						(this.props.lightLinkClass || 'link-dark') :
+						(this.props.darkLinkClass || 'link-light') }`}>
+				{manip.dateFmt(this.props.entry.published_at, {relative: true})}
+			</a>
+		);
+
 		return (
 			<div className={`byline clearfix fw-light fst-italic ${this.props.className || ''}
 				${this.props.isLight ?
-					(this.props.lightTextClass || 'text-muted') :
+					(this.props.lightTextClass || 'text-dark') :
 					(this.props.darkTextClass || 'text-light') }`}>
 				<span className="float-start">
-					<a href={'/category/'+this.props.entry.feed.category.id}
-						className={`text-capitalize text-decoration-none
-							${this.props.isLight ?
-								(this.props.lightLinkClass || 'link-dark') :
-								(this.props.darkLinkClass || 'link-light') }`}>
-						{manip.sanitize(this.props.entry.feed.category.title)}
-					</a> &mdash; <a href={'/source/'+this.props.entry.feed.id}
-						className={`text-decoration-none
-							${this.props.isLight ?
-								(this.props.lightLinkClass || 'link-dark') :
-								(this.props.darkLinkClass || 'link-light') }`}>
-						{manip.sanitize(this.props.entry.feed.title)}
-					</a> &mdash; <a href={this.props.entry.url} target="_blank"
-						title={manip.dateFmt(this.props.entry.published_at)}
-						className={`text-decoration-none
-							${this.props.isLight ?
-								(this.props.lightLinkClass || 'link-dark') :
-								(this.props.darkLinkClass || 'link-light') }`}>
-						{manip.dateFmt(this.props.entry.published_at, {relative: true})}
-					</a>
+					{segments}
 				</span>
 				<span className="float-end">
 					<Icon

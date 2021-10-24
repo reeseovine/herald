@@ -49,6 +49,13 @@ article {
 	}
 }
 
+.hero {
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-blend-mode: soft-light;
+}
+
 .card, .minicard {
 	.card-text a, .byline > * {
 		position: relative;

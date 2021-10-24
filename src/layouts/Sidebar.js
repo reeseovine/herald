@@ -34,7 +34,7 @@ export class Sidebar extends Component {
 							<h5 className="mb-1 fw-light">{manip.sanitize(entry.title)}</h5>
 							<p className="mb-1 fw-light">{manip.getText(entry.content, {count: 1, paras: false, parasOnly: true, images: false})}</p>
 							<small>
-								<Byline entry={entry} isLight={this.props.isLight} />
+								<Byline entry={entry} hideAuthor hideSource isLight={this.props.isLight} />
 							</small>
 						</a>
 					)})}

@@ -8,10 +8,10 @@ import { Byline } from './Byline';
 export class CardView extends Component {
 	render(){
 		if (this.props.entry){
-			let images = manip.getImages(this.props.entry.content, {count: 1, figures: false});
+			let image = manip.getImages(this.props.entry.content, {count: 1, figures: false});
 			let card_img = null;
-			if (images.length > 0){
-				card_img = <Card.Img variant="top" src={images[0].props.src} alt={images[0].props.alt} />;
+			if (image.length > 0){
+				card_img = <Card.Img variant="top" src={image[0].props.src} alt={image[0].props.alt} />;
 			}
 
 			return (
