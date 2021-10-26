@@ -24,7 +24,10 @@ let _matchImg = (node, figures) => {
 				return img;
 			}
 		} else {
-			node.querySelectorAll('img').forEach(i => i.setAttribute('loading', 'lazy'));
+			node.querySelectorAll('img').forEach(i => {
+				i.setAttribute('loading', 'lazy');
+				i.setAttribute('sizes', '');
+			});
 			return node;
 		}
 	} else if (node.querySelector('a>img:only-child')){
@@ -69,7 +72,7 @@ let getText = (content, options) => {
 		if (options.parasOnly && node.tagName != 'P') continue;
 		let img = _matchImg(node, options.figures);
 		if (options.images && img){
-			result.push(ReactHtmlParser(img.outerHTML, {transform: options.transform})[0]);
+			result.push(ReactHtmlParser(img.outerHTML, {transform: options.transform}));
 		} else if (!img){
 			if (node.tagName === 'PRE' && node.children.length > 0 && node.children.item(0).tagName === 'CODE'){
 				result.push(
@@ -78,7 +81,7 @@ let getText = (content, options) => {
 					</Highlight>
 				);
 			} else {
-				result.push(ReactHtmlParser(_swapPs(node, options.paras).outerHTML, {transform: options.transform})[0]);
+				result.push(ReactHtmlParser(_swapPs(node, options.paras).outerHTML, {transform: options.transform}));
 			}
 		}
 		if (options.count >= 1 && result.length == options.count) break;

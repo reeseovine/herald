@@ -30,15 +30,17 @@ export class Byline extends Component {
 				</span>
 			, ' — ');
 		}
-		segments.push( // category
-			<a href={'/category/'+this.props.entry.feed.category.id}
-				className={`text-capitalize text-decoration-none
-					${this.props.isLight ?
-						(this.props.lightLinkClass || 'link-dark') :
-						(this.props.darkLinkClass || 'link-light') }`}>
-				{manip.sanitize(this.props.entry.feed.category.title)}
-			</a>
-		, ' — ');
+		if (!this.props.hideCategory){
+			segments.push( // category
+				<a href={'/category/'+this.props.entry.feed.category.id}
+					className={`text-capitalize text-decoration-none
+						${this.props.isLight ?
+							(this.props.lightLinkClass || 'link-dark') :
+							(this.props.darkLinkClass || 'link-light') }`}>
+					{manip.sanitize(this.props.entry.feed.category.title)}
+				</a>
+			, ' — ');
+		}
 		if (!this.props.hideSource){
 			segments.push(
 				<a href={'/source/'+this.props.entry.feed.id}
