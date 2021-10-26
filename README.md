@@ -2,8 +2,9 @@
   <img src="img/wordmark.svg" height=128 alt="Herald logo"><br>
   Prettier frontend for the <a href="https://miniflux.app/index.html">Miniflux</a> feed reader using Express, React, and Bootstrap<br>
   <a href="https://github.com/katacarbix/herald/releases"><img alt="GitHub release" src="https://img.shields.io/github/v/release/katacarbix/herald"></a>
-  <a href="https://github.com/katacarbix/herald/actions"><img alt="GitHub Workflow Status" src="https://img.shields.io/github/workflow/status/katacarbix/herald/Publish%20Docker%20image%20on%20git-push"></a>
-  <a href="https://hub.docker.com/repository/docker/katacarbix/herald"><img alt="Docker Pulls" src="https://img.shields.io/docker/pulls/katacarbix/herald"></a>
+  <a href="https://github.com/katacarbix/herald/actions/workflows/docker-release.yml"><img alt="Build status (latest)" src="https://img.shields.io/github/workflow/status/katacarbix/herald/Publish%20Docker%20image%20on%20release?label=latest"></a>
+  <a href="https://github.com/katacarbix/herald/actions/workflows/docker-push.yml"><img alt="Build status (edge)" src="https://img.shields.io/github/workflow/status/katacarbix/herald/Publish%20Docker%20image%20on%20git-push?label=edge"></a>
+  <a href="https://hub.docker.com/repository/docker/katacarbix/herald"><img alt="Docker pulls" src="https://img.shields.io/docker/pulls/katacarbix/herald"></a>
   <a href="LICENSE"><img alt="License" src="https://img.shields.io/github/license/katacarbix/herald"></a>
 </div>
 
