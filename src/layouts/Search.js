@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 
 import { Row, Col } from 'react-bootstrap';
 
@@ -73,7 +72,7 @@ export class Search extends Component {
 				threshold: 1.0
 			}
 		);
-		this.observer.observe(ReactDOM.findDOMNode(this.loaderRef.current));
+		this.observer.observe(this.loaderRef.current);
 	}
 
 	componentWillUnmount(){
@@ -89,10 +88,9 @@ export class Search extends Component {
 						return <MiniCard key={key} entry={entry} isLight={this.props.isLight} />
 					})}
 				</div>
-				<Loader ref={this.loaderRef} className={this.state.endOfFeed ? 'd-none' : ''} />
-				<div className={`text-center fst-italic my-4 text-secondary ${this.state.endOfFeed ? '' : 'd-none'}`}>
-					You've reached the end.
-				</div>
+				<Loader
+					state={{loading: this.state.loading, endOfFeed: this.state.endOfFeed}}
+					loaderRef={this.loaderRef} isLight={this.props.isLight} />
 			</>
 		);
 	}

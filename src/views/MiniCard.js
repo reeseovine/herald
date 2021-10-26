@@ -44,7 +44,7 @@ export class MiniCard extends Component {
 		} else {
 			return (
 				<Card className={this.props.isLight ? '' : 'bg-dark border-secondary'}>
-					<Loader />
+					<Loader state={{loading: true}} />
 				</Card>
 			);
 		}

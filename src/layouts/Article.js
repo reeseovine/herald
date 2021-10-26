@@ -57,7 +57,7 @@ class Article extends Component {
 				</Row>
 			);
 		} else {
-			return <Loader />;
+			return <Loader state={{loading: true}} />;
 		}
 	}
 }

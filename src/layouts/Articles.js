@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 
 import { withRouter } from 'react-router-dom';
 
@@ -92,7 +91,7 @@ class Articles extends Component {
 				threshold: 1.0
 			}
 		);
-		this.observer.observe(ReactDOM.findDOMNode(this.loaderRef.current));
+		this.observer.observe(this.loaderRef.current);
 	}
 
 	componentWillUnmount(){
@@ -110,10 +109,9 @@ class Articles extends Component {
 							return <Full key={key} entry={entry} isLight={this.props.isLight} />
 						})}
 					</Col>
-					<Loader ref={this.loaderRef} className={this.state.endOfFeed ? 'd-none' : ''} />
-					<div className={`text-center fst-italic my-4 text-secondary ${this.state.endOfFeed ? '' : 'd-none'}`}>
-						You've reached the end.
-					</div>
+					<Loader
+						state={{loading: this.state.loading, endOfFeed: this.state.endOfFeed}}
+						loaderRef={this.loaderRef} isLight={this.props.isLight} />
 				</Row>
 			);
 		}

@@ -44,7 +44,7 @@ export class Sidebar extends Component {
 			return (
 				<div className="list-group">
 					<div className={`list-group-item p-3 ${this.props.isLight ? '' : 'bg-dark border-secondary text-white'}`}>
-						<Loader />
+						<Loader state={{loading: true}} />
 					</div>
 				</div>
 			);

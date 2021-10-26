@@ -32,7 +32,7 @@ export class Hero extends Component {
 		} else {
 			return (
 				<div className={`hero p-4 p-md-5 mb-3 text-white rounded ${this.props.isLight ? 'bg-dark' : 'bg-black'}`}>
-					<Loader />
+					<Loader state={{loading: true}} />
 				</div>
 			);
 		}
