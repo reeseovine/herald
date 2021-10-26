@@ -28,7 +28,7 @@ export class Frontpage extends Component {
 		this.setState({loading: true});
 		let offsetQuery = '';
 		if (this.state.feed.length > 0){
-			offsetQuery = '&offset='+(this.state.offset+(this.state.offset===1 ? 3 : 0))*8;
+			offsetQuery = '?offset='+(this.state.offset+(this.state.offset===1 ? 3 : 0))*8;
 		}
 		fetch(`/api/feed${offsetQuery}`)
 			.then((response) => response.json())
