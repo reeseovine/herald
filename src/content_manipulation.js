@@ -17,21 +17,22 @@ const extraClasses = {
 
 let _matchImg = (node, figures) => {
 	figures = (typeof figures === 'boolean') ? figures : true;
-	if (node.tagName == 'IMG' || node.tagName == 'FIGURE'){
+
+	node.querySelectorAll('img').forEach(i => {
+		i.setAttribute('loading', 'lazy');
+		i.removeAttribute('sizes');
+	});
+
+	if (node.tagName == 'IMG' ||
+	    (node.tagName == 'FIGURE' && node.querySelector('img'))){
 		if (!figures && node.tagName == 'FIGURE'){
 			let img = node.querySelector('img');
 			if (img){
 				return img;
 			}
 		} else {
-			node.querySelectorAll('img').forEach(i => {
-				i.setAttribute('loading', 'lazy');
-				i.setAttribute('sizes', '');
-			});
 			return node;
 		}
-	} else if (node.querySelector('a>img:only-child')){
-		return node.querySelector('a>img:only-child');
 	}
 	return false;
 }

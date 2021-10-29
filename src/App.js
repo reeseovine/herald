@@ -4,6 +4,7 @@ import { Container } from 'react-bootstrap';
 import { Header } from './components/Header';
 import { Content } from './components/Content';
 import { Footer } from './components/Footer';
+import { Lightbox } from './components/Lightbox';
 
 import './scss/style.scss';
 
@@ -35,6 +36,7 @@ export class App extends Component {
 					</main>
 					<Footer isLight={this.state.isLight} />
 				</Container>
+				<Lightbox />
 			</div>
 		);
 	}

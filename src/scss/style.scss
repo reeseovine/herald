@@ -51,6 +51,10 @@ article {
 				font-weight: 300;
 			}
 		}
+
+		img {
+			cursor: pointer;
+		}
 	}
 
 	&:last-child {
@@ -119,5 +123,40 @@ article {
 		> :not(:last-child) {
 			margin-bottom: $spacer;
 		}
+	}
+}
+
+.lightbox-root {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: fixed;
+	top: 0; right: 0; bottom: 0; left: 0;
+	z-index: $zindex-modal;
+	background-color: rgba($black, 0.5);
+
+	opacity: 0;
+	visibility: hidden;
+	&.visible {
+		visibility: visible;
+		opacity: 1;
+	}
+
+	@supports (backdrop-filter: blur()) {
+		transition: opacity .3s, visibility .29s .01s, backdrop-filter .3s;
+		backdrop-filter: blur(0);
+		&.visible {
+			backdrop-filter: blur(10px);
+		}
+	}
+	@supports not (backdrop-filter: blur()) {
+		transition: opacity .3s, visibility .29s .01s;
+	}
+
+	> img:first-child {
+		max-width: 90vw;
+		max-height: 90vh;
+		@extend .shadow;
+		@extend .rounded;
 	}
 }
