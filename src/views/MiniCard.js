@@ -1,5 +1,7 @@
 import { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { Card, Row, Col } from 'react-bootstrap';
+
 import manip from '../content_manipulation';
 
 import { Loader } from '../components/Loader';
@@ -11,9 +13,9 @@ export class MiniCard extends Component {
 			let cardBody = (
 				<Card.Body>
 					<div className="article-title card-title h4 fw-light">
-						<a href={'/article/'+this.props.entry.id} className="stretched-link">
+						<Link to={'/article/'+this.props.entry.id} className="stretched-link">
 							{manip.sanitize(this.props.entry.title)}
-						</a>
+						</Link>
 					</div>
 					<small>
 						<Byline entry={this.props.entry} hideAuthor hideSource isLight={this.props.isLight} />

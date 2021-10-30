@@ -63,13 +63,14 @@ export class Header extends Component {
 				</Row>
 				<Navbar className={`border-top border-bottom ${this.props.isLight ? '' : 'border-secondary'}`}>
 					<Nav className="w-100 justify-content-around text-capitalize flex-wrap">
-						{ this.state.categories.map((cat) => {
-							return <a key={cat.id}
+						{this.state.categories.map((cat) =>
+							<a key={cat.id}
+								activeClassName="active"
 								href={'/category/'+cat.id}
 								className={`p-1 mx-1 mx-lg-0 text-decoration-none ${this.props.isLight ? 'link-secondary' : 'link-light'}`}>
-									{cat.title}
-								</a>
-						}) }
+								{cat.title}
+							</a>
+						)}
 					</Nav>
 				</Navbar>
 			</header>

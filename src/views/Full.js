@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+
 import manip from '../content_manipulation';
 
 import { Byline } from './Byline';
@@ -34,7 +36,7 @@ export class Full extends Component {
 	render(){
 		return (
 			<article ref={this.ref} className={`mb-5 pb-4 border-bottom ${this.props.isLight ? '' : 'border-secondary'}`}>
-				<h2 className="article-title display-6"><a href={'/article/'+this.props.entry.id}>{manip.sanitize(this.props.entry.title)}</a></h2>
+				<h2 className="article-title display-6"><Link to={'/article/'+this.props.entry.id}>{manip.sanitize(this.props.entry.title)}</Link></h2>
 				<Byline className="mb-3" entry={this.props.entry} read={this.state.read} isLight={this.props.isLight} />
 
 				<div className="article-body fw-light">

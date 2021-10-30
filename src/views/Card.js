@@ -1,5 +1,7 @@
 import { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { Card } from 'react-bootstrap';
+
 import manip from '../content_manipulation';
 
 import { Loader } from '../components/Loader';
@@ -19,9 +21,9 @@ export class CardView extends Component {
 					{card_img}
 					<Card.Body>
 						<div className="article-title card-title h3 fw-light">
-							<a href={'/article/'+this.props.entry.id} className="stretched-link">
+							<Link to={'/article/'+this.props.entry.id} className="stretched-link">
 								{manip.sanitize(this.props.entry.title)}
-							</a>
+							</Link>
 						</div>
 						<Card.Text className="lead">{manip.getText(this.props.entry.content, {count: 1, paras: false, parasOnly: true, images: false})}</Card.Text>
 						<small>

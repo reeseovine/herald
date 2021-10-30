@@ -1,4 +1,6 @@
 import { Component } from 'react';
+import { Link } from 'react-router-dom';
+
 import manip from '../content_manipulation';
 
 import { Loader } from '../components/Loader';
@@ -21,7 +23,7 @@ export class Hero extends Component {
 				<div className={`hero p-4 p-md-5 mb-3 text-white rounded bg-dark ${this.props.isLight ? '' : 'border border-secondary'}`}
 					style={{backgroundImage: `url(${bg_img})`}}>
 					<h1 className="article-title display-4">
-						<a href={'/article/'+this.props.entry.id}>{manip.sanitize(this.props.entry.title)}</a>
+						<Link to={'/article/'+this.props.entry.id}>{manip.sanitize(this.props.entry.title)}</Link>
 					</h1>
 					<p className="lead fs-4">{manip.getText(this.props.entry.content, {count: 1, paras: false, parasOnly: true, images: false})}</p>
 					<Byline entry={this.props.entry} isLight={this.props.isLight} className="mb-0"
