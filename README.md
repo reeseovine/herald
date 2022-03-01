@@ -6,9 +6,9 @@
   <a href="https://github.com/katacarbix/herald/actions/workflows/docker-push.yml"><img alt="Build status (edge)" src="https://img.shields.io/github/workflow/status/katacarbix/herald/Publish%20Docker%20image%20on%20git-push?label=edge"></a>
   <a href="https://hub.docker.com/repository/docker/katacarbix/herald"><img alt="Docker pulls" src="https://img.shields.io/docker/pulls/katacarbix/herald"></a>
   <a href="LICENSE"><img alt="License" src="https://img.shields.io/github/license/katacarbix/herald"></a>
-</div>
 
-#### NOTE: This project is in beta and is not guaranteed to be stable. Proceed at your own risk!
+  <h1>:warning: Herald was a proof-of-concept and development is now discontinued. The latest version may contain vulnerabilities but should still work. :warning:</h1>
+</div>
 
 ## Features
 - Responsive newspaper/magazine-like layout with Bootstrap
